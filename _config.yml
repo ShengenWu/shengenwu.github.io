@@ -9,7 +9,7 @@
 # Basic Site Settings
 locale                   : "en-US"
 site_theme               : "default"
-title                    : "Shengen Wu's Homepage""
+title                    : "Shengen Wu's Homepage"
 title_separator          : "-"
 name                     : &name "Shengen Wu"
 description              : &description "Shengen Wu (吴盛恩)"
