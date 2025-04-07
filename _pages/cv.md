@@ -11,54 +11,33 @@ redirect_from:
 
 Education
 ======
-* Ph.D in Version Control Theory, GitHub University, 2018 (expected)
-* M.S. in Jekyll, GitHub University, 2014
-* B.S. in GitHub, GitHub University, 2012
-
-Work experience
-======
-* Spring 2024: Academic Pages Collaborator
-  * GitHub University
-  * Duties includes: Updates and improvements to template
-  * Supervisor: The Users
-
-* Fall 2015: Research Assistant
-  * GitHub University
-  * Duties included: Merging pull requests
-  * Supervisor: Professor Hub
-
-* Summer 2015: Research Assistant
-  * GitHub University
-  * Duties included: Tagging issues
-  * Supervisor: Professor Git
-  
-Skills
-======
-* Skill 1
-* Skill 2
-  * Sub-skill 2.1
-  * Sub-skill 2.2
-  * Sub-skill 2.3
-* Skill 3
+* M.Phil. in Artificial Intelligence, The Hong Kong University of Science and Technology (Guangzhou), 2024-2026, Guangzhou
+* B.S. in Mathematics with Finance, University of Liverpool, 2022-2024, Liverpool
+* B.S. in Financial Mathematics, Xi'an Jiaotong-Liverpool University, 2020-2024, Suzhou
 
 Publications
 ======
   <ul>{% for post in site.publications reversed %}
     {% include archive-single-cv.html %}
   {% endfor %}</ul>
-  
-Talks
+
+Work experience
 ======
-  <ul>{% for post in site.talks reversed %}
-    {% include archive-single-talk-cv.html  %}
-  {% endfor %}</ul>
+* 2021-2022: Jobready
+  * Start-up company
+  * Senior GCP
+  * Department of Project Development
+
+* Spring 2021: Soochow Securities
+  * Intern of Institutional Business Department
+  * Due Diligence
+
+* Summer 2022: Sucheng-Hui Private Equity Fund Management
+  * Intern
+  * Automating pre-market, intra-market, and post-market data handling tasks
+  * Data analysis
   
-Teaching
+Skills
 ======
-  <ul>{% for post in site.teaching reversed %}
-    {% include archive-single-cv.html %}
-  {% endfor %}</ul>
-  
-Service and leadership
-======
-* Currently signed in to 43 different slack teams
+* English: IELTS 6.5(6-8-6-6)
+* Python
