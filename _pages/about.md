@@ -11,5 +11,5 @@ Shengen Wu is currently an MPhil student at [The Hong Kong University of Science
 
 # Recent News
 \[01/2025\] One paper got accepted in [IEEE CSCWD2025](https://www.ieeesmc.org/technical-activities/human-machine-systems/computer-supported-cooperative-work-in-design/) 
-\n
+<br>
 \[06/2024\] One paper got accepted in [IEEE SEAI2024](https://seai.org/)
