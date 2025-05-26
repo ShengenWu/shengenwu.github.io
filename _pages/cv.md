@@ -12,7 +12,7 @@ redirect_from:
 <!-- 新增：CV PDF 下载链接 -->
 <div style="text-align:left; margin-bottom: 1em;">
   <a href="{{ 'files/Shengen_Wu_CV_2025_AC.pdf' | relative_url }}" target="_blank" style="font-weight:bold; color:#2a7ae2;">
-    📄 下载我的完整CV（PDF）
+    📄 Download My Resume/下载我的完整简历（PDF）
   </a>
 </div>
 
