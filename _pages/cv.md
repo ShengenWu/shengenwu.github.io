@@ -9,6 +9,13 @@ redirect_from:
 
 {% include base_path %}
 
+<!-- 新增：CV PDF 下载链接 -->
+<div style="text-align:right; margin-bottom: 1em;">
+  <a href="{{ 'files/Shengen_WU_CV.pdf' | relative_url }}" target="_blank" style="font-weight:bold; color:#2a7ae2;">
+    📄 下载我的完整CV（PDF）
+  </a>
+</div>
+
 Education
 ======
 * M.Phil. in Artificial Intelligence, The Hong Kong University of Science and Technology (Guangzhou), 2024-2026, Guangzhou
