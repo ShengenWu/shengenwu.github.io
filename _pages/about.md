@@ -11,6 +11,7 @@ Shengen Wu is currently an MPhil student at [The Hong Kong University of Science
 
 # 🔥 Recent News
 \[09/2025\] 🎉 One preprint was online via [ArXiv link](https://arxiv.org/abs/2509.10570).
+<br>
 \[09/2025\] 🎉 One paper got accepted in [EMNLP 2025](https://2025.emnlp.org/) and accessed via [ArXiv link](https://arxiv.org/abs/2509.16889).
 <br>
 \[01/2025\] 🎉 One paper got accepted in [IEEE CSCWD2025](https://ieeexplore.ieee.org/document/11033473).
