@@ -46,8 +46,8 @@ Feel free to reach out if you'd like to discuss research or explore potential co
 <span class='anchor' id='-educations'></span>
 # 🏫 Educations
 - *2024.09 - Present*: &nbsp;Master of Philosophy (MPhil) in Artificial Intelligence, <span class="primary-gradient-text">HKUST(GZ)</span><img src='images/hkustgzlogo.png' style="height:1em; vertical-align:middle;">.
+- *2020.09 - 2024.06*: &nbsp;Bachelor of Science in Financial Mathematics, <span class="primary-gradient-text">Xi'an Jiaotong-Liverpool University</span> & <span class="primary-gradient-text">University of Liverpool</span>.
 <!-- - *2020.09 - 2024.06*: &nbsp;Bachelor of Science in Financial Mathematics, <span class="primary-gradient-text">Xi'an Jiaotong-Liverpool University</span><img src='images/xjtlu.png' style="height:1em; vertical-align:middle;"> & <span class="primary-gradient-text">University of Liverpool</span><img src='images/liverpool.png' style="height:1em; vertical-align:middle;">. -->
-*2020.09 - 2024.06*: &nbsp;Bachelor of Science in Financial Mathematics, <span class="primary-gradient-text">Xi'an Jiaotong-Liverpool University</span> & <span class="primary-gradient-text">University of Liverpool</span>.
 
 <span class='anchor' id='internships'></span>
 # 💼 Internships
