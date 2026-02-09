@@ -89,7 +89,7 @@ Feel free to reach out if you'd like to discuss research or explore potential co
     </div>
   </div>
 
-  <div class='paper-box floating-card' data-tags="Multimodal, Table Understanding, EMNLP">
+  <div class='paper-box floating-card' data-tags="LLM, Multimodal, Table Understanding, EMNLP">
     <div class='paper-box-image'>
       <div class="badge pulse-accent">EMNLP 2025</div>
       <img src='images/paper-emnlp2025.png' alt="TableR1 Overview" width="100%">
@@ -104,7 +104,7 @@ Feel free to reach out if you'd like to discuss research or explore potential co
     </div>
   </div>
 
-  <div class='paper-box floating-card' data-tags="Medical Imaging, Multi-Modal, CSCWD">
+  <div class='paper-box floating-card' data-tags="Medical Imaging, Zero-Shot Learning, Multimodal, CSCWD">
     <div class='paper-box-image'>
       <div class="badge pulse-accent">IEEE CSCWD 2025</div>
       <img src='images/paper-cscwd2025.png' alt="MMKNet Overview" width="100%">
@@ -119,7 +119,7 @@ Feel free to reach out if you'd like to discuss research or explore potential co
     </div>
   </div>
 
-  <div class='paper-box floating-card' data-tags="Medical Imaging, Zero-Shot Learning, SEAI">
+  <div class='paper-box floating-card' data-tags="Medical Imaging, Zero-Shot Learning, Multimodal, SEAI">
     <div class='paper-box-image'>
       <div class="badge pulse-accent">IEEE SEAI 2024</div>
       <img src='images/paper-seai2024.png' alt="MVCNet Overview" width="100%">
