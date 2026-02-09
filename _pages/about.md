@@ -102,6 +102,7 @@ Feel free to reach out if you'd like to discuss research or explore potential co
   <div class='paper-box floating-card' data-tags="Medical Imaging, Multi-Modal, CSCWD">
     <div class='paper-box-image'>
       <div class="badge pulse-accent">IEEE CSCWD 2025</div>
+      <img src='images/paper-cscwd2025.png' alt="MMKNet Overview" width="100%">
     </div>
     <div class='paper-box-text'>
       <h3>MMKNet: A Multi-Modal Knowledge Network for Predicting Both Seen and Unseen Classes in Medical Imaging</h3>
