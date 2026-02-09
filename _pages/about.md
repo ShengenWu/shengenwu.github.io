@@ -48,7 +48,12 @@ Feel free to reach out if you'd like to discuss research or explore potential co
 - *2024.09 - Present*: &nbsp;Master of Philosophy (MPhil) in Artificial Intelligence, <span class="primary-gradient-text">HKUST(GZ)</span><img src='images/hkustgzlogo.png' style="height:1em; vertical-align:middle;">.
 - *2020.09 - 2024.06*: &nbsp;Bachelor of Science in Financial Mathematics, <span class="primary-gradient-text">Xi'an Jiaotong-Liverpool University</span><img src='images/xjtlu.png' style="height:1em; vertical-align:middle;"> & <span class="primary-gradient-text">University of Liverpool</span><img src='images/liverpool.png' style="height:1em; vertical-align:middle;">.
 
-<span class='anchor' id='-publications'></span>
+<span class='anchor' id='internships'></span>
+# 💼 Internships
+- *2025.08 - 2025.11*: &nbsp;Data Strategy Intern, <span class="primary-gradient-text">Douyin Group</span>, ByteDance.
+- *2026.01 - Present*: &nbsp;Algorithm Engineer & Researcher, <span class="primary-gradient-text">HiThink Lab</span>, Tonghuashun.
+
+
 # 📃 Publications
 
 <div id="publications-wrapper">
@@ -106,7 +111,7 @@ Feel free to reach out if you'd like to discuss research or explore potential co
     </div>
     <div class='paper-box-text'>
       <h3>MMKNet: A Multi-Modal Knowledge Network for Predicting Both Seen and Unseen Classes in Medical Imaging</h3>
-      <div class="authors">W. Xu, H. -S. Gan, <span class="primary-gradient-text">Shengen WU</span>, Z. Wang, M. H. Ramlee, W. M. Hafizah📧</div>
+      <div class="authors">Wenqi Xu, Hong-seng Gan📧, <span class="primary-gradient-text">Shengen WU</span>, Zimu Wang, Muhammad Hanif Ramlee, Wan Mahani Hafizah</div>
       <div class="venue">IEEE 29th International Conference on Computer Supported Cooperative Work and Design (CSCWD 2025)</div>
       <div class="links">
         <a href="https://ieeexplore.ieee.org/document/11033473" class="btn-accent"><i class="fas fa-file-alt"></i> Paper</a>
@@ -121,7 +126,7 @@ Feel free to reach out if you'd like to discuss research or explore potential co
     </div>
     <div class='paper-box-text'>
       <h3>MVCNet: A Vision Transformer-Based Network for Multi-Label Zero-Shot Learning in Medical Imaging</h3>
-      <div class="authors"><span class="primary-gradient-text">S. WU</span>, H. -S. Gan, Y. -T. Lo, M. H. Ramlee, H. Basaruddin📧</div>
+      <div class="authors"><span class="primary-gradient-text">Shengen Wu</span>, Hong-seng Gan📧, Ying-Tuan Lo, Muhammad Hanif Ramlee, Hafiz Basaruddin</div>
       <div class="venue">IEEE 4th International Conference on Software Engineering and Artificial Intelligence (SEAI 2024)</div>
       <div class="links">
         <a href="https://ieeexplore.ieee.org/abstract/document/10674183" class="btn-accent"><i class="fas fa-file-alt"></i> Paper</a>
