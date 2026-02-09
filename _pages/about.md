@@ -39,7 +39,7 @@ Feel free to reach out if you'd like to discuss research or explore potential co
 # 🔥 News
 - *01/2026*: &nbsp;🎉 One paper got accepted by <span class="accent-text">The Fourteenth International Conference on Learning Representations (ICLR 2026)</span>. See you in Rio de Janeiro🇧🇷!
 - *09/2025*: &nbsp;🎉 One preprint was online via <span class="accent-text">ArXiv</span>.
-- *09/2025*: &nbsp;🎉 One paper got accepted by <span class="accent-text">The 2025 Conference on Empirical Methods in Natural Language Processing (EMNLP 2025)</span>. See you in Cape Town🇿🇦!
+- *09/2025*: &nbsp;🎉 One paper got accepted by <span class="accent-text">The 2025 Conference on Empirical Methods in Natural Language Processing (EMNLP 2025)</span>. See you in Suzhou🇨🇳!
 - *01/2025*: &nbsp;🎉 One paper got accepted by <span class="accent-text">IEEE CSCWD 2025</span>.
 - *06/2024*: &nbsp;🎉 One paper got accepted by <span class="accent-text">IEEE SEAI 2024</span>.
 
