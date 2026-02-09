@@ -21,7 +21,7 @@ header:
 {% assign url = gsDataBaseUrl | append: "google-scholar-stats/gs_data_shieldsio.json" %}
 
 <span class='anchor' id='about-me'></span>
-My name is <span class="accent-text">Shengen WU</span>. I'm currently pursuing a Master of Philosophy (MPhil) degree at <a href="https://hkust-gz.edu.cn" class="link-accent">The Hong Kong University of Science and Technology (Guangzhou)</a><img src='images/hkustgzlogo.png' style="height:1em; vertical-align:middle;">. I am a member of The Deep Interdisciplinary Intelligence Lab (Di² Lab), advised by Professor <a href="https://facultyprofiles.hkust-gz.edu.cn/faculty-personal-page/YUE-Yutao/yutaoyue" class="link-accent">Yuetao Yue</a>. My research focuses on <span class="accent-text">Large Language Models (LLMs)</span>, with particular interests in <span class="primary-gradient-text">multimodal learning</span> and <span class="primary-gradient-text">reasoning enhancement</span>.
+My name is <span class="accent-text">Shengen WU</span>. I'm currently pursuing a Master of Philosophy (MPhil) degree at <a href="https://hkust-gz.edu.cn" class="link-accent">The Hong Kong University of Science and Technology (Guangzhou)</a>. I am a member of The Deep Interdisciplinary Intelligence Lab (Di² Lab), advised by Professor <a href="https://facultyprofiles.hkust-gz.edu.cn/faculty-personal-page/YUE-Yutao/yutaoyue" class="link-accent">Yuetao Yue</a>. My research focuses on <span class="accent-text">Large Language Models (LLMs)</span>, with particular interests in <span class="primary-gradient-text">multimodal learning</span> and <span class="primary-gradient-text">reasoning enhancement</span>.
 
 <!-- <div class="quote-accent">
   I am passionate about:
