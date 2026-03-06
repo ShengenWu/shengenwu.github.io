@@ -60,7 +60,7 @@ Feel free to reach out if you'd like to discuss research or explore potential co
 <div id="publications-wrapper">
   <div id="filter-container"></div>
   
-  <div class='paper-box floating-card' data-tags="Knowledge Editing, LLM, ICLR, CAAI-A">
+  <div class='paper-box floating-card' data-tags="Knowledge Editing, LLM, ICLR, CCF-A">
     <div class='paper-box-image'>
       <div class="badge pulse-accent">ICLR 2026 Poster</div>
       <img src='images/paper-iclr2026.png' alt="ACE Overview" width="100%">
