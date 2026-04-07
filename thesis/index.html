@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MPhil Defense: Data-Side Interventions for Specialized Multimodal Reasoning</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800&family=Nunito:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ===== VIEWPORT BASE ===== */
+html, body { height: 100%; overflow-x: hidden; margin: 0; padding: 0; }
+html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+.slide {
+  width: 100vw; height: 100vh; height: 100dvh;
+  overflow: hidden; scroll-snap-align: start;
+  display: flex; flex-direction: column; position: relative;
+}
+.slide-content {
+  flex: 1; display: flex; flex-direction: column;
+  justify-content: center; max-height: 100%; overflow: hidden;
+  padding: clamp(1.5rem, 4vw, 4rem);
+}
+:root {
+  --blue-dark: #1a3a6b;
+  --blue-mid: #2563eb;
+  --blue-light: #dbeafe;
+  --blue-accent: #3b82f6;
+  --white: #ffffff;
+  --gray-light: #f1f5f9;
+  --gray-text: #475569;
+  --text-dark: #0f172a;
+  --title-size: clamp(1.8rem, 4.5vw, 3.6rem);
+  --h2-size: clamp(1.4rem, 3.2vw, 2.4rem);
+  --h3-size: clamp(1.1rem, 2.2vw, 1.6rem);
+  --body-size: clamp(0.9rem, 1.7vw, 1.25rem);
+  --small-size: clamp(0.8rem, 1.3vw, 1.05rem);
+}
+* { box-sizing: border-box; }
+body { font-family: 'Nunito', sans-serif; background: var(--white); color: var(--text-dark); }
+h1, h2, h3 { font-family: 'Archivo', sans-serif; margin: 0; }
+
+/* ===== SLIDE COUNTER ===== */
+.slide-num {
+  position: absolute; bottom: clamp(0.8rem,2vh,1.5rem); right: clamp(1rem,2vw,2rem);
+  font-size: var(--small-size); color: var(--gray-text); font-family: 'Archivo', sans-serif;
+}
+
+/* ===== TOP BAR ===== */
+.top-bar {
+  height: clamp(4px, 0.6vh, 8px);
+  background: linear-gradient(90deg, var(--blue-dark) 0%, var(--blue-mid) 60%, var(--blue-accent) 100%);
+  flex-shrink: 0;
+}
+
+/* ===== SECTION LABEL ===== */
+.section-label {
+  display: inline-block;
+  background: var(--blue-light); color: var(--blue-dark);
+  font-size: var(--small-size); font-family: 'Archivo', sans-serif; font-weight: 700;
+  padding: 0.2em 0.8em; border-radius: 2px; letter-spacing: 0.08em;
+  text-transform: uppercase; margin-bottom: clamp(0.5rem,1.5vh,1.2rem);
+}
+
+/* ===== NAVIGATION ===== */
+.nav-hint {
+  position: fixed; bottom: clamp(0.8rem,2vh,1.5rem); left: 50%; transform: translateX(-50%);
+  font-size: var(--small-size); color: #94a3b8; pointer-events: none; z-index: 100;
+}
+
+/* ===== SLIDE 1: COVER ===== */
+#s1 { background: var(--white); }
+#s1 .cover-inner {
+  display: flex; flex-direction: column; justify-content: center;
+  height: 100%; padding: clamp(2rem,5vw,5rem);
+}
+#s1 .cover-left-bar {
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: clamp(6px,1vw,12px);
+  background: linear-gradient(180deg, var(--blue-dark) 0%, var(--blue-mid) 100%);
+}
+#s1 .institution {
+  font-size: var(--small-size); color: #94a3b8; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: clamp(1rem,3vh,2.5rem);
+}
+#s1 h1 {
+  font-size: clamp(1.4rem, 3.5vw, 2.8rem); color: var(--blue-dark);
+  line-height: 1.25; margin-bottom: clamp(0.8rem,2vh,1.5rem);
+  max-width: 80%;
+}
+#s1 .subtitle {
+  font-size: var(--h3-size); color: var(--blue-mid);
+  margin-bottom: clamp(1.5rem,4vh,3rem); font-weight: 600;
+}
+#s1 .meta { display: flex; flex-direction: column; gap: 0.4em; }
+#s1 .meta-item { font-size: var(--body-size); color: var(--gray-text); }
+#s1 .meta-item strong { color: var(--text-dark); }
+#s1 .deco-circle {
+  position: absolute; right: clamp(2rem,8vw,8rem); top: 50%; transform: translateY(-50%);
+  width: clamp(120px,20vw,280px); height: clamp(120px,20vw,280px);
+  border-radius: 50%; border: clamp(2px,0.4vw,5px) solid var(--blue-light);
+  opacity: 0.6;
+}
+#s1 .deco-circle-inner {
+  position: absolute; right: clamp(3rem,10vw,10rem); top: 50%; transform: translateY(-50%);
+  width: clamp(70px,12vw,170px); height: clamp(70px,12vw,170px);
+  border-radius: 50%; background: var(--blue-light); opacity: 0.4;
+}
+
+/* ===== SLIDE 2: OUTLINE ===== */
+#s2 { background: var(--white); }
+#s2 .outline-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(3, auto);
+  grid-auto-flow: column;
+  gap: clamp(0.8rem,2vw,1.5rem); margin-top: clamp(1rem,2.5vh,2rem);
+}
+.outline-card {
+  background: var(--gray-light); border-left: clamp(3px,0.4vw,5px) solid var(--blue-mid);
+  padding: clamp(0.8rem,1.5vw,1.2rem) clamp(1rem,2vw,1.5rem);
+  border-radius: 0 6px 6px 0;
+}
+.outline-card .num {
+  font-size: var(--small-size); font-family: 'Archivo', sans-serif; font-weight: 800;
+  color: var(--blue-mid); margin-bottom: 0.3em;
+}
+.outline-card .title { font-size: var(--body-size); font-weight: 700; color: var(--text-dark); }
+.outline-card .desc { font-size: var(--small-size); color: var(--gray-text); margin-top: 0.2em; }
+.outline-card.highlight { background: var(--blue-light); border-left-color: var(--blue-dark); }
+
+/* ===== SLIDE 3: MOTIVATION ===== */
+#s3 { background: var(--white); }
+.problem-row {
+  display: flex; gap: clamp(0.8rem,2vw,1.5rem);
+  margin-top: clamp(0.8rem,2vh,1.5rem);
+}
+.problem-box {
+  flex: 1; background: var(--gray-light);
+  border-top: clamp(3px,0.4vw,5px) solid var(--blue-mid);
+  padding: clamp(0.8rem,1.5vw,1.2rem); border-radius: 0 0 6px 6px;
+}
+.problem-box .icon { font-size: clamp(1.2rem,2.5vw,2rem); margin-bottom: 0.3em; }
+.problem-box h3 { font-size: var(--h3-size); color: var(--blue-dark); margin-bottom: 0.4em; }
+.problem-box p { font-size: var(--small-size); color: var(--gray-text); line-height: 1.5; margin: 0; }
+
+/* ===== SLIDE 4: THREE DEFICIENCIES ===== */
+#s4 { background: var(--white); }
+.deficiency-list { display: flex; flex-direction: column; gap: clamp(0.6rem,1.5vh,1.2rem); margin-top: clamp(0.8rem,2vh,1.5rem); }
+.deficiency-item {
+  display: flex; align-items: flex-start; gap: clamp(0.8rem,1.5vw,1.2rem);
+  background: var(--gray-light); padding: clamp(0.8rem,1.5vw,1.2rem); border-radius: 6px;
+}
+.deficiency-num {
+  flex-shrink: 0; width: clamp(28px,4vw,44px); height: clamp(28px,4vw,44px);
+  background: var(--blue-dark); color: white; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Archivo', sans-serif; font-weight: 800; font-size: var(--body-size);
+}
+.deficiency-text h3 { font-size: var(--h3-size); color: var(--blue-dark); margin-bottom: 0.2em; }
+.deficiency-text p { font-size: var(--small-size); color: var(--gray-text); margin: 0; line-height: 1.5; }
+.deficiency-text .tag {
+  display: inline-block; background: var(--blue-light); color: var(--blue-dark);
+  font-size: var(--small-size); padding: 0.1em 0.5em; border-radius: 3px;
+  font-weight: 700; margin-top: 0.3em;
+}
+
+/* ===== SLIDE 5: THESIS FRAMEWORK ===== */
+#s5 { background: var(--white); }
+.framework-row {
+  display: flex; gap: clamp(0.8rem,2vw,1.5rem);
+  margin-top: clamp(0.8rem,2vh,1.5rem); align-items: stretch;
+}
+.framework-col {
+  flex: 1; display: flex; flex-direction: column; gap: clamp(0.5rem,1vh,0.8rem);
+}
+.framework-header {
+  background: var(--blue-dark); color: white;
+  padding: clamp(0.5rem,1vw,0.8rem) clamp(0.8rem,1.5vw,1.2rem);
+  border-radius: 6px 6px 0 0; text-align: center;
+  font-family: 'Archivo', sans-serif; font-weight: 700; font-size: var(--body-size);
+}
+.framework-body {
+  background: var(--blue-light); padding: clamp(0.6rem,1.2vw,1rem);
+  border-radius: 0 0 6px 6px; flex: 1;
+}
+.framework-body li { font-size: var(--small-size); color: var(--blue-dark); margin-bottom: 0.4em; line-height: 1.4; }
+.framework-arrow {
+  display: flex; align-items: center; justify-content: center;
+  font-size: clamp(1.2rem,2.5vw,2rem); color: var(--blue-mid); flex-shrink: 0;
+}
+.mechanism-row {
+  display: flex; gap: clamp(0.5rem,1vw,0.8rem); margin-top: clamp(0.5rem,1vh,0.8rem);
+}
+.mechanism-tag {
+  flex: 1; text-align: center; background: var(--gray-light);
+  border: 1px solid var(--blue-light); border-radius: 4px;
+  padding: clamp(0.3rem,0.8vw,0.6rem); font-size: var(--small-size);
+  color: var(--blue-dark); font-weight: 600;
+}
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1: COVER -->
+<section class="slide" id="s1">
+  <div class="top-bar"></div>
+  <div class="cover-left-bar"></div>
+  <img src="images/L3繁体.png" alt="HKUST(GZ) Logo" style="position:absolute; top:clamp(1rem,2.5vh,2rem); left:clamp(2rem,5vw,5rem); height:clamp(32px,4.5vh,52px); width:auto; object-fit:contain;">
+  <div class="cover-inner">
+    <div class="institution">HKUST(GZ) · MPhil Thesis Defense · April 2026</div>
+    <h1>Reasoning Capability Enhancement of Multimodal Large Language Models in Specialized Domains</h1>
+    <div class="subtitle">Geometry &amp; Table Understanding</div>
+    <div class="meta">
+      <div class="meta-item"><strong>Candidate:</strong> Shengen Wu</div>
+      <div class="meta-item"><strong>Student ID:</strong> 50029276</div>
+      <div class="meta-item"><strong>Supervisor:</strong> Prof. Yutao YUE &nbsp;|&nbsp; <strong>Co-Supervisor:</strong> Prof. Jing TANG</div>
+      <div class="meta-item"><strong>Program:</strong> MPhil in Artificial Intelligence · Red Bird</div>
+    </div>
+  </div>
+  <div class="deco-circle"></div>
+  <div class="deco-circle-inner"></div>
+  <div class="slide-num">1 / 31</div>
+</section>
+
+<!-- SLIDE 2: OUTLINE -->
+<section class="slide" id="s2">
+  <div class="top-bar"></div>
+  <div class="slide-content">
+    <div class="section-label">Overview</div>
+    <h2 style="font-size:var(--h2-size); color:var(--blue-dark);">Today's Talk</h2>
+    <div class="outline-grid">
+      <div class="outline-card highlight">
+        <div class="num">01</div>
+        <div class="title">Background &amp; Motivation</div>
+        <div class="desc">Why do MLLMs struggle in specialized domains?</div>
+      </div>
+      <div class="outline-card">
+        <div class="num">02</div>
+        <div class="title">Thesis Framework</div>
+        <div class="desc">Three deficiencies → two research lines</div>
+      </div>
+      <div class="outline-card">
+        <div class="num">03</div>
+        <div class="title">Part I: Geometry</div>
+        <div class="desc">Multi-view trace synthesis pipeline</div>
+      </div>
+      <div class="outline-card">
+        <div class="num">04</div>
+        <div class="title">Part II: Table Reasoning</div>
+        <div class="desc">Table-R1: staged RL with data-side design</div>
+      </div>
+      <div class="outline-card">
+        <div class="num">05</div>
+        <div class="title">Results &amp; Analysis</div>
+        <div class="desc">Experiments, ablations, key findings</div>
+      </div>
+      <div class="outline-card">
+        <div class="num">06</div>
+        <div class="title">Conclusion</div>
+        <div class="desc">Contributions &amp; future directions</div>
+      </div>
+    </div>
+    <div style="margin-top:clamp(0.5rem,1.5vh,1rem); font-size:var(--small-size); color:var(--gray-text);">
+      ⏱ Estimated time: ~50 minutes + Q&amp;A
+    </div>
+  </div>
+  <div class="slide-num">2 / 31</div>
+</section>
+
+<!-- SLIDE 3: MOTIVATION -->
+<section class="slide" id="s3">
+  <div class="top-bar"></div>
+  <div class="slide-content">
+    <div class="section-label">Background</div>
+    <h2 style="font-size:var(--h2-size); color:var(--blue-dark);">MLLMs Are Powerful — But Struggle in Specialized Domains</h2>
+    <p style="font-size:var(--body-size); color:var(--gray-text); margin: clamp(0.3rem,1vh,0.8rem) 0;">
+      Models like GPT-4o and Qwen2-VL perform well on general tasks. But in <strong>plane geometry</strong> and <strong>complex table understanding</strong>, they still make many mistakes.
+    </p>
+    <div class="problem-row">
+      <div class="problem-box">
+        <div class="icon">📐</div>
+        <h3>Plane Geometry</h3>
+        <p>Requires precise visual perception of diagrams + multi-step symbolic reasoning. One wrong angle reading → wrong answer.</p>
+      </div>
+      <div class="problem-box">
+        <div class="icon">📊</div>
+        <h3>Table Understanding</h3>
+        <p>Tables have merged cells, hierarchical headers, dense numbers. Models must parse structure AND reason logically.</p>
+      </div>
+    </div>
+    <div style="margin-top:clamp(0.6rem,1.5vh,1.2rem); background:var(--blue-light); border-left: 4px solid var(--blue-mid); padding: clamp(0.5rem,1vw,0.8rem) clamp(0.8rem,1.5vw,1.2rem); border-radius: 0 4px 4px 0;">
+      <p style="font-size:var(--body-size); color:var(--blue-dark); margin:0; font-weight:600;">
+        Key insight: The problem is not just the model architecture — it's also the <em>quality of training data</em>.
+      </p>
+    </div>
+  </div>
+  <div class="slide-num">3 / 31</div>
+</section>
+
+<!-- SLIDE 4: THREE DEFICIENCIES -->
+<section class="slide" id="s4">
+  <div class="top-bar"></div>
+  <div class="slide-content">
+    <div class="section-label">Problem Analysis</div>
+    <h2 style="font-size:var(--h2-size); color:var(--blue-dark);">Three Structural Deficiencies in Training Data</h2>
+    <div class="deficiency-list">
+      <div class="deficiency-item">
+        <div class="deficiency-num">1</div>
+        <div class="deficiency-text">
+          <h3>Impoverished Supervision Representations</h3>
+          <p>Existing datasets only provide one format — e.g., a symbolic program or a short final answer. This is too narrow for the model to learn from effectively.</p>
+          <span class="tag">→ Representation Enrichment</span>
+        </div>
+      </div>
+      <div class="deficiency-item">
+        <div class="deficiency-num">2</div>
+        <div class="deficiency-text">
+          <h3>Unfavorable Initialization States</h3>
+          <p>When we apply Reinforcement Learning, the model starts too weak. It can't generate correct answers, so it gets no useful reward signal — training stalls.</p>
+          <span class="tag">→ Initialization Shaping</span>
+        </div>
+      </div>
+      <div class="deficiency-item">
+        <div class="deficiency-num">3</div>
+        <div class="deficiency-text">
+          <h3>Unbounded Exploration Spaces</h3>
+          <p>For long reasoning chains, the model has to search a huge space of possible steps. Without constraints, it rarely finds the correct path.</p>
+          <span class="tag">→ Exploration Bounding</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">4 / 31</div>
+</section>
+
+<!-- SLIDE 5: THESIS FRAMEWORK -->
+<section class="slide" id="s5">
+  <div class="top-bar"></div>
+  <div class="slide-content">
+    <div class="section-label">Thesis Framework</div>
+    <h2 style="font-size:var(--h2-size); color:var(--blue-dark);">Two Research Lines, Three Shared Mechanisms</h2>
+    <div class="framework-row">
+      <div class="framework-col">
+        <div class="framework-header">Part I: Geometry</div>
+        <div class="framework-body">
+          <ul style="margin:0; padding-left:1.2em;">
+            <li>Multi-view trace synthesis</li>
+            <li>DSL → PAL + CoT formats</li>
+            <li>Execution-based verification</li>
+            <li>Addresses: <strong>①③</strong></li>
+          </ul>
+        </div>
+      </div>
+      <div class="framework-arrow">→</div>
+      <div class="framework-col">
+        <div class="framework-header">Part II: Table (Table-R1)</div>
+        <div class="framework-body">
+          <ul style="margin:0; padding-left:1.2em;">
+            <li>Warm-up data construction</li>
+            <li>Perception-alignment instructions</li>
+            <li>Hint-Completion partitioning</li>
+            <li>Addresses: <strong>①②③</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:var(--small-size); color:var(--gray-text); margin: clamp(0.5rem,1.2vh,1rem) 0 clamp(0.3rem,0.8vh,0.6rem);">Three shared data-side mechanisms:</p>
+    <div class="mechanism-row">
+      <div class="mechanism-tag">① Representation<br>Enrichment</div>
+      <div class="mechanism-tag">② Initialization<br>Shaping</div>
+      <div class="mechanism-tag">③ Exploration<br>Bounding</div>
+    </div>
+    <div style="margin-top:clamp(0.5rem,1.2vh,1rem); background:var(--blue-light); padding: clamp(0.4rem,0.8vw,0.7rem) clamp(0.8rem,1.5vw,1.2rem); border-radius:4px;">
+      <p style="font-size:var(--small-size); color:var(--blue-dark); margin:0; font-weight:600;">
+        Research question: Can structured data-side interventions systematically improve multimodal reasoning in specialized domains?
+      </p>
+    </div>
+  </div>
+  <div class="slide-num">5 / 31</div>
+</section>
+
+<!-- SLIDE 6: PART I SECTION DIVIDER -->
+<section class="slide" id="s6" style="background: var(--blue-dark); justify-content: center; align-items: center;">
+  <div style="text-align:center; padding: clamp(2rem,5vw,5rem);">
+    <div style="font-size:var(--small-size); color:#93c5fd; letter-spacing:0.15em; text-transform:uppercase; font-family:'Archivo',sans-serif; font-weight:700; margin-bottom:clamp(0.8rem,2vh,1.5rem);">Part I</div>
+    <h1 style="font-size:clamp(1.8rem,4.5vw,3.5rem); color:white; line-height:1.2; margin-bottom:clamp(0.8rem,2vh,1.5rem);">Geometry Reasoning</h1>
+    <p style="font-size:var(--h3-size); color:#93c5fd; max-width:600px; margin:0 auto;">Multi-View Trace Synthesis for Plane Geometry</p>
+    <div style="margin-top:clamp(1.5rem,4vh,3rem); display:flex; gap:clamp(0.8rem,2vw,1.5rem); justify-content:center; flex-wrap:wrap;">
+      <div style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:6px; padding:clamp(0.5rem,1vw,0.8rem) clamp(1rem,2vw,1.5rem); color:white; font-size:var(--small-size);">Representation Enrichment ①</div>
+      <div style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:6px; padding:clamp(0.5rem,1vw,0.8rem) clamp(1rem,2vw,1.5rem); color:white; font-size:var(--small-size);">Exploration Bounding ③</div>
+    </div>
+  </div>
+  <div class="slide-num" style="color:#93c5fd;">6 / 31</div>
+</section>
+
+<!-- SLIDE 7: GEO TASK INTRO -->
+<section class="slide" id="s7">
+  <div class="top-bar"></div>
+  <div class="slide-content">
+    <div class="section-label">Part I · Geometry</div>
+    <h2 style="font-size:var(--h2-size); color:var(--blue-dark);">What is Plane Geometry Problem Solving?</h2>
+    <div style="display:flex; gap:clamp(1rem,2.5vw,2rem); margin-top:clamp(0.8rem,2vh,1.5rem); align-items:flex-start;">
+      <div style="flex:1;">
+        <p style="font-size:var(--body-size); color:var(--gray-text); margin:0 0 clamp(0.5rem,1.2vh,1rem);">Given a geometry diagram + question, the model must reason step-by-step to find the answer.</p>
+        <div style="background:var(--gray-light); border-radius:6px; padding:clamp(0.8rem,1.5vw,1.2rem);">
+          <p style="font-size:var(--small-size); color:var(--blue-dark); font-weight:700; margin:0 0 0.4em;">Example Problem:</p>
+          <p style="font-size:var(--small-size); color:var(--gray-text); margin:0; line-height:1.6;">
+            📐 Given: AC⊥BD at B, AD⊥CD at D,<br>
+            AB = <math display="inline" style="font-size:1em; vertical-align:middle;"><mrow><mn>3</mn><msqrt><mn>2</mn></msqrt></mrow></math>, DB = <math display="inline" style="font-size:1em; vertical-align:middle;"><msqrt><mn>2</mn></msqrt></math>. Find DC (= y).
+          </p>
+          <div style="margin-top:0.6em; padding-top:0.6em; border-top:1px solid #e2e8f0;">
+            <p style="font-size:var(--small-size); color:var(--gray-text); margin:0; line-height:1.6;">
+              <strong>Key steps:</strong> Geometric Mean Theorem → BD²=AB×CB<br>
+              Then Pythagorean Theorem in △BDC → DC = y
+            </p>
+          </div>
+        </div>
+      </div>
+      <div style="flex:1;">
+        <p style="font-size:var(--small-size); color:var(--gray-text); font-weight:700; margin:0 0 0.5em;">Problem instance = (D, Q, S, P, A)</p>
+        <div style="display:flex; flex-direction:column; gap:0.4em;">
+          <div style="background:var(--blue-light); padding:0.4em 0.8em; border-radius:4px; font-size:var(--small-size); color:var(--blue-dark);"><strong>D</strong> — Diagram image</div>
+          <div style="background:var(--blue-light); padding:0.4em 0.8em; border-radius:4px; font-size:var(--small-size); color:var(--blue-dark);"><strong>Q</strong> — Natural language question</div>
+          <div style="background:var(--blue-light); padding:0.4em 0.8em; border-radius:4px; font-size:var(--small-size); color:var(--blue-dark);"><strong>S</strong> — Semantic clauses (e.g., AB∥CD)</div>
+          <div style="background:var(--blue-light); padding:0.4em 0.8em; border-radius:4px; font-size:var(--small-size); color:var(--blue-dark);"><strong>P</strong> — Gold solution program (DSL)</div>
+          <div style="background:var(--blue-light); padding:0.4em 0.8em; border-radius:4px; font-size:var(--small-size); color:var(--blue-dark);"><strong>A</strong> — Numeric answer</div>
+        </div>
+        <p style="font-size:var(--small-size); color:var(--gray-text); margin-top:0.6em;">Dataset: <strong>PGPS9K</strong> — 9K geometry problems with diagrams</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">7 / 31</div>
+</section>
+
+<!-- SLIDE 8: THE PROBLEM WITH DSL -->
+<section class="slide" id="s8">
+  <div class="top-bar"></div>
+  <div class="slide-content">
+    <div class="section-label">Part I · Geometry</div>
+    <h2 style="font-size:var(--h2-size); color:var(--blue-dark);">The Problem: DSL is Hard to Learn From</h2>
+    <div style="display:flex; gap:clamp(1rem,2.5vw,2rem); margin-top:clamp(0.8rem,2vh,1.5rem);">
+      <div style="flex:1;">
+        <p style="font-size:var(--small-size); color:var(--blue-dark); font-weight:700; margin:0 0 0.4em;">Traditional DSL (Domain-Specific Language):</p>
+        <div style="background:#1e293b; color:#e2e8f0; padding:clamp(0.6rem,1.2vw,1rem); border-radius:6px; font-family:monospace; font-size:var(--small-size); line-height:1.7;">
+          <span style="color:#94a3b8;">// Opaque, non-semantic</span><br>
+          Equal(LengthOf(Line(A,B)), x)<br>
+          Equal(LengthOf(Line(B,C)), y)<br>
+          IsoscelesTriangle(A,B,C)<br>
+          Find(x)
+        </div>
+        <div style="margin-top:0.6em; background:#fef2f2; border-left:3px solid #ef4444; padding:0.5em 0.8em; border-radius:0 4px 4px 0;">
+          <p style="font-size:var(--small-size); color:#991b1b; margin:0;">❌ Hard to verify by running code<br>❌ Doesn't use model's Python/NL knowledge<br>❌ Only one rigid format</p>
+        </div>
+      </div>
+      <div style="flex:1;">
+        <p style="font-size:var(--small-size); color:var(--blue-dark); font-weight:700; margin:0 0 0.4em;">What we want instead:</p>
+        <div style="display:flex; flex-direction:column; gap:0.4em;">
+          <div style="background:var(--blue-light); padding:0.5em 0.8em; border-radius:4px; font-size:var(--small-size); color:var(--blue-dark);">✅ <strong>Executable</strong> — can run and verify automatically</div>
+          <div style="background:var(--blue-light); padding:0.5em 0.8em; border-radius:4px; font-size:var(--small-size); color:var(--blue-dark);">✅ <strong>Human-readable</strong> — uses natural language</div>
+          <div style="background:var(--blue-light); padding:0.5em 0.8em; border-radius:4px; font-size:var(--small-size); color:var(--blue-dark);">✅ <strong>Diverse</strong> — multiple formats to learn from</div>
+          <div style="background:var(--blue-light); padding:0.5em 0.8em; border-radius:4px; font-size:var(--small-size); color:var(--blue-dark);">✅ <strong>Leverages pre-training</strong> — Python, math, NL</div>
+        </div>
+        <div style="margin-top:0.6em; background:var(--gray-light); padding:0.5em 0.8em; border-radius:4px;">
+          <p style="font-size:var(--small-size); color:var(--gray-text); margin:0;">Our solution: synthesize <strong>4 complementary formats</strong> from the same DSL program</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">8 / 31</div>
+</section>
+
+<!-- SLIDE 9: FOUR FORMATS OVERVIEW -->
+<section class="slide" id="s9">
+  <div class="top-bar"></div>
+  <div class="slide-content">
+    <div class="section-label">Part I · Geometry</div>
+    <h2 style="font-size:var(--h2-size); color:var(--blue-dark);">Four Supervision Formats: Geo4</h2>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:clamp(0.6rem,1.5vw,1.2rem); margin-top:clamp(0.8rem,2vh,1.5rem);">
+      <div style="background:var(--gray-light); border-top:3px solid #64748b; padding:clamp(0.6rem,1.2vw,1rem); border-radius:0 0 6px 6px;">
+        <p style="font-size:var(--small-size); font-weight:800; color:#64748b; margin:0 0 0.3em; font-family:'Archivo',sans-serif;">PROGRAM (original)</p>
+        <p style="font-size:var(--small-size); color:var(--gray-text); margin:0; line-height:1.5;">The raw DSL steps. Kept as one of the four formats to preserve symbolic reasoning style.</p>
+      </div>
+      <div style="background:var(--blue-light); border-top:3px solid var(--blue-mid); padding:clamp(0.6rem,1.2vw,1rem); border-radius:0 0 6px 6px;">
+        <p style="font-size:var(--small-size); font-weight:800; color:var(--blue-dark); margin:0 0 0.3em; font-family:'Archivo',sans-serif;">PAL (synthesized)</p>
+        <p style="font-size:var(--small-size); color:var(--blue-dark); margin:0; line-height:1.5;">Python + SymPy code. Executable and verifiable. Translated rule-by-rule from DSL.</p>
+      </div>
+      <div style="background:var(--blue-light); border-top:3px solid var(--blue-mid); padding:clamp(0.6rem,1.2vw,1rem); border-radius:0 0 6px 6px;">
+        <p style="font-size:var(--small-size); font-weight:800; color:var(--blue-dark); margin:0 0 0.3em; font-family:'Archivo',sans-serif;">CoT-Program (synthesized)</p>
+        <p style="font-size:var(--small-size); color:var(--blue-dark); margin:0; line-height:1.5;">Natural language explanation of each DSL step. Written by an LLM, aligned to program steps.</p>
+      </div>
+      <div style="background:var(--blue-light); border-top:3px solid var(--blue-dark); padding:clamp(0.6rem,1.2vw,1rem); border-radius:0 0 6px 6px;">
+        <p style="font-size:var(--small-size); font-weight:800; color:var(--blue-dark); margin:0 0 0.3em; font-family:'Archivo',sans-serif;">CoT-PAL ⭐ (synthesized)</p>
+        <p style="font-size:var(--small-size); color:var(--blue-dark); margin:0; line-height:1.5;">PAL code + natural language rationale before each equation. Best of both worlds.</p>
+      </div>
+    </div>
+    <div style="margin-top:clamp(0.5rem,1.2vh,1rem); background:var(--gray-light); padding:clamp(0.4rem,0.8vw,0.7rem) clamp(0.8rem,1.5vw,1.2rem); border-radius:4px; display:flex; align-items:center; gap:0.8em;">
+      <span style="font-size:var(--small-size); color:var(--gray-text);">Geo3 = PAL + CoT-Program + CoT-PAL &nbsp;|&nbsp; <strong>Geo4 = Geo3 + Program</strong> (32K total training samples)</span>
+    </div>
+  </div>
+  <div class="slide-num">9 / 31</div>
+</section>
+
+<!-- SLIDE 10: EXAMPLE OF FOUR FORMATS -->
+<section class="slide" id="s10">
+  <div class="top-bar"></div>
+  <div class="slide-content" style="align-items:center;">
+    <div class="section-label">Part I · Geometry · Example</div>
+    <h2 style="font-size:var(--h2-size); color:var(--blue-dark); margin-bottom:clamp(0.5rem,1.5vh,1rem);">Synthesis Pipeline: Four Formats from One Problem</h2>
+    <img src="images/geo-data-example.png" alt="Geo data example" style="max-width:100%; max-height:min(62vh,520px); object-fit:contain; border-radius:6px;">
+  </div>
+  <div class="slide-num">10 / 31</div>
+</section>
+
+<!-- SLIDE 11: SYNTHESIS PIPELINE -->
+<section class="slide" id="s11">
+  <div class="top-bar"></div>
+  <div class="slide-content">
+    <div class="section-label">Part I · Geometry</div>
+    <h2 style="font-size:var(--h2-size); color:var(--blue-dark);">Synthesis Pipeline: Three Steps</h2>
+    <div style="display:flex; align-items:stretch; gap:clamp(0.4rem,1vw,0.8rem); margin-top:clamp(0.8rem,2vh,1.5rem);">
+      <div style="flex:1; background:var(--gray-light); border-radius:6px; padding:clamp(0.6rem,1.2vw,1rem); text-align:center;">
+        <div style="font-size:clamp(1.2rem,2.5vw,2rem); margin-bottom:0.3em;">🔧</div>
+        <p style="font-size:var(--small-size); font-weight:800; color:var(--blue-dark); margin:0 0 0.3em; font-family:'Archivo',sans-serif;">Step 1</p>
+        <p style="font-size:var(--small-size); font-weight:700; color:var(--text-dark); margin:0 0 0.3em;">Program Simplification</p>
+        <p style="font-size:var(--small-size); color:var(--gray-text); margin:0; line-height:1.5;">Replace variable names with actual numbers.<br>Make the program self-contained.</p>
+      </div>
+      <div style="display:flex; align-items:center; color:var(--blue-mid); font-size:clamp(1rem,2vw,1.5rem);">→</div>
+      <div style="flex:1; background:var(--blue-light); border-radius:6px; padding:clamp(0.6rem,1.2vw,1rem); text-align:center;">
+        <div style="font-size:clamp(1.2rem,2.5vw,2rem); margin-bottom:0.3em;">⚙️</div>
+        <p style="font-size:var(--small-size); font-weight:800; color:var(--blue-dark); margin:0 0 0.3em; font-family:'Archivo',sans-serif;">Step 2</p>
+        <p style="font-size:var(--small-size); font-weight:700; color:var(--text-dark); margin:0 0 0.3em;">Rule-Based PAL Conversion</p>
+        <p style="font-size:var(--small-size); color:var(--blue-dark); margin:0; line-height:1.5;">Each DSL operator → SymPy equation.<br>Run in sandbox.<br>Check answer matches gold (ε=0.001).</p>
+      </div>
+      <div style="display:flex; align-items:center; color:var(--blue-mid); font-size:clamp(1rem,2vw,1.5rem);">→</div>
+      <div style="flex:1; background:var(--blue-light); border-radius:6px; padding:clamp(0.6rem,1.2vw,1rem); text-align:center;">
+        <div style="font-size:clamp(1.2rem,2.5vw,2rem); margin-bottom:0.3em;">✍️</div>
+        <p style="font-size:var(--small-size); font-weight:800; color:var(--blue-dark); margin:0 0 0.3em; font-family:'Archivo',sans-serif;">Step 3</p>
+        <p style="font-size:var(--small-size); font-weight:700; color:var(--text-dark); margin:0 0 0.3em;">CoT Augmentation</p>
+        <p style="font-size:var(--small-size); color:var(--blue-dark); margin:0; line-height:1.5;">LLM adds natural language rationale to PAL → CoT-PAL.<br>Also rewrites DSL steps → CoT-Program.</p>
+      </div>
+    </div>
+    <div style="margin-top:clamp(0.6rem,1.5vh,1.2rem); background:var(--gray-light); padding:clamp(0.4rem,0.8vw,0.7rem) clamp(0.8rem,1.5vw,1.2rem); border-radius:4px;">
+      <p style="font-size:var(--small-size); color:var(--gray-text); margin:0;">
+        📊 Result: 8,021 programs → <strong>8,017 verified PAL scripts</strong> (only 4 filtered out) → 32K Geo4 training set
+      </p>
+    </div>
+    <div style="margin-top:clamp(0.4rem,1vh,0.8rem); background:#fef9c3; border-left:3px solid #ca8a04; padding:clamp(0.4rem,0.8vw,0.7rem) clamp(0.8rem,1.5vw,1.2rem); border-radius:0 4px 4px 0;">
+      <p style="font-size:var(--small-size); color:#92400e; margin:0;">
+        💡 Key design: <strong>Translate-then-Rewrite</strong> (rule-based PAL first, then LLM adds CoT) uses only 0.9K tokens per prompt vs. 5.1K for direct generation — and gives better results.
+      </p>
+    </div>
+  </div>
+  <div class="slide-num">11 / 31</div>
+</section>
+
+<!-- SLIDE 12: GEO RESULTS -->
+<section class="slide" id="s12">
+  <div class="top-bar"></div>
+  <div class="slide-content">
+    <div class="section-label">Part I · Geometry · Results</div>
+    <h2 style="font-size:var(--h2-size); color:var(--blue-dark);">Main Results on PGPS9K</h2>
+    <div style="display:flex; gap:clamp(1rem,2.5vw,2rem); margin-top:clamp(0.8rem,2vh,1.5rem); align-items:flex-start;">
+      <div style="flex:1.05;">
+        <p style="font-size:var(--small-size); color:var(--gray-text); margin:0 0 0.5em;">Ours (two-stage + Geo4) vs same-backbone baseline (single-stage):</p>
+        <table style="width:100%; border-collapse:collapse; font-size:var(--small-size);">
+          <thead>
+            <tr style="background:var(--blue-dark); color:white;">
+              <th style="padding:0.38em 0.5em; text-align:left;">Backbone</th>
+              <th style="padding:0.38em 0.5em; text-align:center;">Baseline</th>
+              <th style="padding:0.38em 0.5em; text-align:center;">Ours</th>
+              <th style="padding:0.38em 0.5em; text-align:center;">Gain</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background:var(--gray-light);">
+              <td style="padding:0.38em 0.5em;">Qwen2-VL-2B</td>
+              <td style="padding:0.38em 0.5em; text-align:center;">43.4</td>
+              <td style="padding:0.38em 0.5em; text-align:center; font-weight:700; color:var(--blue-dark);">50.8</td>
+              <td style="padding:0.38em 0.5em; text-align:center; color:#16a34a; font-weight:700;">+7.4</td>
+            </tr>
+            <tr>
+              <td style="padding:0.38em 0.5em;">Qwen2.5-VL-3B</td>
+              <td style="padding:0.38em 0.5em; text-align:center;">46.7</td>
+              <td style="padding:0.38em 0.5em; text-align:center; font-weight:700; color:var(--blue-dark);">58.3</td>
+              <td style="padding:0.38em 0.5em; text-align:center; color:#16a34a; font-weight:700;">+11.6</td>
+            </tr>
+            <tr style="background:var(--blue-light);">
+              <td style="padding:0.38em 0.5em; font-weight:700;">Qwen3-VL-8B</td>
+              <td style="padding:0.38em 0.5em; text-align:center;">58.6</td>
+              <td style="padding:0.38em 0.5em; text-align:center; font-weight:800; color:var(--blue-dark);">71.2</td>
+              <td style="padding:0.38em 0.5em; text-align:center; color:#16a34a; font-weight:800;">+12.6</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="margin-top:0.5em; background:var(--blue-light); padding:0.45em 0.7em; border-radius:4px;">
+          <p style="font-size:var(--small-size); color:var(--blue-dark); margin:0;">Avg gain across 2B/3B/8B: <strong>+10.5 points</strong></p>
+        </div>
+      </div>
+      <div style="flex:1;">
+        <p style="font-size:var(--small-size); color:var(--gray-text); margin:0 0 0.5em;">Cross-family comparison reported in Chapter 3:</p>
+        <table style="width:100%; border-collapse:collapse; font-size:clamp(0.66rem,0.95vw,0.84rem);">
+          <thead>
+            <tr style="background:var(--blue-dark); color:white;">
+              <th style="padding:0.35em 0.45em; text-align:left;">Category</th>
+              <th style="padding:0.35em 0.45em; text-align:left;">Model</th>
+              <th style="padding:0.35em 0.45em; text-align:center;">Acc.</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background:var(--gray-light);"><td style="padding:0.35em 0.45em;">Closed</td><td style="padding:0.35em 0.45em;">GPT-4V</td><td style="padding:0.35em 0.45em; text-align:center;">33.3</td></tr>
+            <tr><td style="padding:0.35em 0.45em;">Closed</td><td style="padding:0.35em 0.45em;">GPT-4o</td><td style="padding:0.35em 0.45em; text-align:center;">50.9</td></tr>
+            <tr style="background:var(--gray-light);"><td style="padding:0.35em 0.45em;">Closed</td><td style="padding:0.35em 0.45em;">Claude-3.7 Sonnet</td><td style="padding:0.35em 0.45em; text-align:center;">53.7</td></tr>
+            <tr><td style="padding:0.35em 0.45em;">Open</td><td style="padding:0.35em 0.45em;">LLaVA-v1.5</td><td style="padding:0.35em 0.45em; text-align:center;">1.8</td></tr>
+            <tr style="background:var(--gray-light);"><td style="padding:0.35em 0.45em;">Open</td><td style="padding:0.35em 0.45em;">Qwen2.5-VL-7B-Instruct</td><td style="padding:0.35em 0.45em; text-align:center;">39.4</td></tr>
+            <tr><td style="padding:0.35em 0.45em;">Specialized</td><td style="padding:0.35em 0.45em;">PGPSNet</td><td style="padding:0.35em 0.45em; text-align:center;">62.7</td></tr>
+            <tr style="background:var(--gray-light);"><td style="padding:0.35em 0.45em;">Specialized</td><td style="padding:0.35em 0.45em;">GF-Reasoner</td><td style="padding:0.35em 0.45em; text-align:center;">68.7</td></tr>
+            <tr><td style="padding:0.35em 0.45em;">Specialized</td><td style="padding:0.35em 0.45em;">LLaVA-v1.5 + Solver</td><td style="padding:0.35em 0.45em; text-align:center;">21.6</td></tr>
+            <tr style="background:var(--gray-light);"><td style="padding:0.35em 0.45em;">Specialized</td><td style="padding:0.35em 0.45em;">NGS / Geoformer</td><td style="padding:0.35em 0.45em; text-align:center;">34.1 / 35.6</td></tr>
+            <tr><td style="padding:0.35em 0.45em;">Specialized</td><td style="padding:0.35em 0.45em;">InterGPS (Diag GT)</td><td style="padding:0.35em 0.45em; text-align:center;">59.8</td></tr>
+            <tr style="background:var(--gray-light);"><td style="padding:0.35em 0.45em;">Specialized</td><td style="padding:0.35em 0.45em;">LANS / GeoX</td><td style="padding:0.35em 0.45em; text-align:center;">66.1 / 52.7</td></tr>
+            <tr><td style="padding:0.35em 0.45em;">Open</td><td style="padding:0.35em 0.45em;">Vision-R1-7B</td><td style="padding:0.35em 0.45em; text-align:center;">50.5</td></tr>
+            <tr style="background:var(--gray-light);"><td style="padding:0.35em 0.45em;">Open</td><td style="padding:0.35em 0.45em;">Kimi-VL-A3B-Thinking</td><td style="padding:0.35em 0.45em; text-align:center;">49.2</td></tr>
+            <tr style="background:var(--blue-light);"><td style="padding:0.35em 0.45em; font-weight:700;">Ours</td><td style="padding:0.35em 0.45em; font-weight:700;">Qwen3-VL-8B + Geo4</td><td style="padding:0.35em 0.45em; text-align:center; font-weight:800; color:var(--blue-dark);">71.2</td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:0.45em; background:#f0fdf4; border-left:3px solid #16a34a; padding:0.4em 0.65em; border-radius:0 4px 4px 0;">
+          <p style="font-size:var(--small-size); color:#166534; margin:0;">71.2 surpasses GPT-4o (50.9), Claude-3.7 (53.7), PGPSNet (62.7), GF-Reasoner (68.7).</p>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:0.45em; background:#fef9c3; border-left:3px solid #ca8a04; padding:0.42em 0.7em; border-radius:0 4px 4px 0;">
+      <p style="font-size:var(--small-size); color:#92400e; margin:0;">
+        Note: main table changes both <strong>training recipe</strong> and <strong>data mixture</strong>; causal isolation is shown on the next ablation slide.
+      </p>
+    </div>
+  </div>
+  <div class="slide-num">12 / 31</div>
+</section>
+
+<!-- SLIDE 13: GEO ABLATION -->
+<section class="slide" id="s12b">
+  <div class="top-bar"></div>
+  <div class="slide-content">
+    <div class="section-label">Part I · Geometry · Ablation</div>
+    <h2 style="font-size:var(--h2-size); color:var(--blue-dark);">Ablation: Why Multi-View Data Matters</h2>
+    <div style="display:flex; gap:clamp(1rem,2.5vw,2rem); margin-top:clamp(0.8rem,2vh,1.4rem); align-items:flex-start;">
+      <div style="flex:1.15;">
+        <p style="font-size:var(--small-size); color:var(--gray-text); margin:0 0 0.5em;">Single-stage training, only changing supervision format:</p>
+        <table style="width:100%; border-collapse:collapse; font-size:var(--small-size);">
+          <thead>
+            <tr style="background:var(--blue-dark); color:white;">
+              <th style="padding:0.35em 0.5em; text-align:left;">Training Data</th>
+              <th style="padding:0.35em 0.45em; text-align:center;">2B</th>
+              <th style="padding:0.35em 0.45em; text-align:center;">3B</th>
+              <th style="padding:0.35em 0.45em; text-align:center;">8B</th>
+              <th style="padding:0.35em 0.45em; text-align:center;">Trace Corr.</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background:var(--gray-light);"><td style="padding:0.35em 0.5em;">Program (8K)</td><td style="padding:0.35em 0.45em; text-align:center;">46.2</td><td style="padding:0.35em 0.45em; text-align:center;">54.2</td><td style="padding:0.35em 0.45em; text-align:center;">67.5</td><td style="padding:0.35em 0.45em; text-align:center;">--</td></tr>
+            <tr><td style="padding:0.35em 0.5em;">CoT-Program (8K)</td><td style="padding:0.35em 0.45em; text-align:center;">46.0</td><td style="padding:0.35em 0.45em; text-align:center;">54.5</td><td style="padding:0.35em 0.45em; text-align:center;">67.9</td><td style="padding:0.35em 0.45em; text-align:center;">96.0%</td></tr>
+            <tr style="background:var(--gray-light);"><td style="padding:0.35em 0.5em;">PAL (8K)</td><td style="padding:0.35em 0.45em; text-align:center;">46.7</td><td style="padding:0.35em 0.45em; text-align:center;">54.4</td><td style="padding:0.35em 0.45em; text-align:center;">67.4</td><td style="padding:0.35em 0.45em; text-align:center;">--</td></tr>
+            <tr><td style="padding:0.35em 0.5em;">CoT-PAL (8K)</td><td style="padding:0.35em 0.45em; text-align:center;">47.2</td><td style="padding:0.35em 0.45em; text-align:center;">55.4</td><td style="padding:0.35em 0.45em; text-align:center;">68.3</td><td style="padding:0.35em 0.45em; text-align:center;">98.5%</td></tr>
+            <tr style="background:var(--blue-light);"><td style="padding:0.35em 0.5em; font-weight:700;">Geo4 (32K, all traces)</td><td style="padding:0.35em 0.45em; text-align:center; font-weight:800; color:var(--blue-dark);">50.8</td><td style="padding:0.35em 0.45em; text-align:center; font-weight:800; color:var(--blue-dark);">58.3</td><td style="padding:0.35em 0.45em; text-align:center; font-weight:800; color:var(--blue-dark);">71.2</td><td style="padding:0.35em 0.45em; text-align:center;">--</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="flex:0.85;">
+        <p style="font-size:var(--small-size); color:var(--gray-text); margin:0 0 0.5em;">Construction ablation for CoT-PAL:</p>
+        <table style="width:100%; border-collapse:collapse; font-size:var(--small-size);">
+          <thead>
+            <tr style="background:var(--blue-dark); color:white;">
+              <th style="padding:0.35em 0.5em; text-align:left;">Method</th>
+              <th style="padding:0.35em 0.45em; text-align:center;">2B</th>
+              <th style="padding:0.35em 0.45em; text-align:center;">3B</th>
+              <th style="padding:0.35em 0.45em; text-align:center;">8B</th>
+              <th style="padding:0.35em 0.45em; text-align:center;">Prompt Len</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background:var(--blue-light);">
+              <td style="padding:0.35em 0.5em; font-weight:700;">Translate-then-Rewrite (ours)</td>
+              <td style="padding:0.35em 0.45em; text-align:center; font-weight:700; color:var(--blue-dark);">47.2</td>
+              <td style="padding:0.35em 0.45em; text-align:center; font-weight:700; color:var(--blue-dark);">55.4</td>
+              <td style="padding:0.35em 0.45em; text-align:center; font-weight:700; color:var(--blue-dark);">68.3</td>
+              <td style="padding:0.35em 0.45em; text-align:center;">0.9K</td>
+            </tr>
+            <tr>
+              <td style="padding:0.35em 0.5em;">Direct LLM: Program → CoT-PAL</td>
+              <td style="padding:0.35em 0.45em; text-align:center;">43.1</td>
+              <td style="padding:0.35em 0.45em; text-align:center;">52.6</td>
+              <td style="padding:0.35em 0.45em; text-align:center;">65.4</td>
+              <td style="padding:0.35em 0.45em; text-align:center;">5.1K</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="margin-top:0.55em; background:#f0fdf4; border-left:3px solid #16a34a; padding:0.45em 0.7em; border-radius:0 4px 4px 0;">
+          <p style="font-size:var(--small-size); color:#166534; margin:0;">Geo4 beats strongest single trace (CoT-PAL) by +3.6 / +2.9 / +2.9 on 2B/3B/8B.</p>
+        </div>
+        <div style="margin-top:0.4em; background:var(--gray-light); padding:0.45em 0.7em; border-radius:4px;">
+          <p style="font-size:var(--small-size); color:var(--gray-text); margin:0;">Takeaway: data diversity drives gains, and pipeline engineering improves both quality and token efficiency.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">13 / 31</div>
+</section>
+
+<!-- SLIDE 14: GEO SUMMARY -->
+<section class="slide" id="s13">
+  <div class="top-bar"></div>
+  <div class="slide-content">
+    <div class="section-label">Part I · Geometry · Summary</div>
+    <h2 style="font-size:var(--h2-size); color:var(--blue-dark);">Part I: Key Takeaways</h2>
+    <div style="display:flex; flex-direction:column; gap:clamp(0.6rem,1.5vh,1.2rem); margin-top:clamp(0.8rem,2vh,1.5rem);">
+      <div style="display:flex; gap:clamp(0.8rem,1.5vw,1.2rem); align-items:flex-start; background:var(--gray-light); padding:clamp(0.6rem,1.2vw,1rem); border-radius:6px;">
+        <div style="font-size:clamp(1.2rem,2.5vw,1.8rem); flex-shrink:0;">✅</div>
+        <div>
+          <p style="font-size:var(--body-size); font-weight:700; color:var(--text-dark); margin:0 0 0.2em;">Representation Enrichment Works</p>
+          <p style="font-size:var(--small-size); color:var(--gray-text); margin:0;">Transforming opaque DSL into diverse, human-readable, executable formats improves learning. The model can leverage its Python and NL pre-training knowledge.</p>
+        </div>
+      </div>
+      <div style="display:flex; gap:clamp(0.8rem,1.5vw,1.2rem); align-items:flex-start; background:var(--blue-light); padding:clamp(0.6rem,1.2vw,1rem); border-radius:6px;">
+        <div style="font-size:clamp(1.2rem,2.5vw,1.8rem); flex-shrink:0;">✅</div>
+        <div>
+          <p style="font-size:var(--body-size); font-weight:700; color:var(--blue-dark); margin:0 0 0.2em;">Diversity Matters More Than Any Single Format</p>
+          <p style="font-size:var(--small-size); color:var(--blue-dark); margin:0;">No single trace format is sufficient. Mixing all four formats prevents overfitting to one reasoning style and gives the best results.</p>
+        </div>
+      </div>
+      <div style="display:flex; gap:clamp(0.8rem,1.5vw,1.2rem); align-items:flex-start; background:var(--gray-light); padding:clamp(0.6rem,1.2vw,1rem); border-radius:6px;">
+        <div style="font-size:clamp(1.2rem,2.5vw,1.8rem); flex-shrink:0;">✅</div>
+        <div>
+          <p style="font-size:var(--body-size); font-weight:700; color:var(--text-dark); margin:0 0 0.2em;">Execution-Based Verification Ensures Quality</p>
+          <p style="font-size:var(--small-size); color:var(--gray-text); margin:0;">Running the PAL code in a sandbox and checking the answer filters out wrong traces automatically. 99.95% of programs pass verification.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">14 / 31</div>
+</section>
+
+<!-- SLIDE 14: PART II SECTION DIVIDER -->
+<section class="slide" id="s14" style="background: var(--blue-dark); justify-content: center; align-items: center;">
+  <div style="text-align:center; padding: clamp(2rem,5vw,5rem);">
+    <div style="font-size:var(--small-size); color:#93c5fd; letter-spacing:0.15em; text-transform:uppercase; font-family:'Archivo',sans-serif; font-weight:700; margin-bottom:clamp(0.8rem,2vh,1.5rem);">Part II</div>
+    <h1 style="font-size:clamp(1.8rem,4.5vw,3.5rem); color:white; line-height:1.2; margin-bottom:clamp(0.8rem,2vh,1.5rem);">Table Reasoning</h1>
+    <p style="font-size:var(--h3-size); color:#93c5fd; max-width:600px; margin:0 auto;">Table-R1: Data Construction for Multimodal Table Reinforcement Learning</p>
+    <div style="margin-top:clamp(1.5rem,4vh,3rem); display:flex; gap:clamp(0.8rem,2vw,1.5rem); justify-content:center; flex-wrap:wrap;">
+      <div style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:6px; padding:clamp(0.5rem,1vw,0.8rem) clamp(1rem,2vw,1.5rem); color:white; font-size:var(--small-size);">Representation Enrichment ①</div>
+      <div style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:6px; padding:clamp(0.5rem,1vw,0.8rem) clamp(1rem,2vw,1.5rem); color:white; font-size:var(--small-size);">Initialization Shaping ②</div>
+      <div style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:6px; padding:clamp(0.5rem,1vw,0.8rem) clamp(1rem,2vw,1.5rem); color:white; font-size:var(--small-size);">Exploration Bounding ③</div>
+    </div>
+  </div>
+  <div class="slide-num" style="color:#93c5fd;">15 / 31</div>
+</section>
+
+<!-- SLIDE 15: TABLE TASK + RL CHALLENGE -->
+<section class="slide" id="s15">
+  <div class="top-bar"></div>
+  <div class="slide-content">
+    <div class="section-label">Part II · Table</div>
+    <h2 style="font-size:var(--h2-size); color:var(--blue-dark);">Why Use Reinforcement Learning for Tables?</h2>
+    <div style="display:flex; gap:clamp(1rem,2.5vw,2rem); margin-top:clamp(0.8rem,2vh,1.5rem);">
+      <div style="flex:1;">
+        <p style="font-size:var(--small-size); font-weight:700; color:var(--blue-dark); margin:0 0 0.4em;">SFT (Supervised Fine-Tuning)</p>
+        <div style="background:var(--gray-light); padding:clamp(0.6rem,1.2vw,1rem); border-radius:6px;">
+          <p style="font-size:var(--small-size); color:var(--gray-text); margin:0; line-height:1.6;">
+            ✅ Easy to train<br>
+            ✅ Good on seen table formats<br>
+            ❌ Imitation learning — just copies examples<br>
+            ❌ Struggles on <em>unseen</em> table structures<br>
+            ❌ Weak on complex multi-step reasoning
+          </p>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; color:var(--blue-mid); font-size:clamp(1rem,2vw,1.5rem);">→</div>
+      <div style="flex:1;">
+        <p style="font-size:var(--small-size); font-weight:700; color:var(--blue-dark); margin:0 0 0.4em;">RL (e.g., GRPO)</p>
+        <div style="background:var(--blue-light); padding:clamp(0.6rem,1.2vw,1rem); border-radius:6px;">
+          <p style="font-size:var(--small-size); color:var(--blue-dark); margin:0; line-height:1.6;">
+            ✅ Learns from trial and error<br>
+            ✅ Better generalization potential<br>
+            ❌ Needs the model to already be "good enough"<br>
+            ❌ Long reasoning chains → huge search space<br>
+            ❌ Sparse rewards → training can stall
+          </p>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:clamp(0.6rem,1.5vh,1.2rem); background:#fef9c3; border-left:3px solid #ca8a04; padding:clamp(0.4rem,0.8vw,0.7rem) clamp(0.8rem,1.5vw,1.2rem); border-radius:0 4px 4px 0;">
+      <p style="font-size:var(--small-size); color:#92400e; margin:0; font-weight:600;">
+        Our approach: fix RL's weaknesses from the <strong>data side</strong> — don't change the algorithm, change the training environment.
+      </p>
+    </div>
+  </div>
+  <div class="slide-num">16 / 31</div>
+</section>
+
+<!-- SLIDE 16: COLD START PROBLEM -->
+<section class="slide" id="s16">
+  <div class="top-bar"></div>
+  <div class="slide-content">
+    <div class="section-label">Part II · Table · Challenge 1</div>
+    <h2 style="font-size:var(--h2-size); color:var(--blue-dark);">Challenge 1: The Cold-Start Problem</h2>
+    <p style="font-size:var(--body-size); color:var(--gray-text); margin:clamp(0.3rem,0.8vh,0.6rem) 0 clamp(0.6rem,1.5vh,1.2rem);">
+      GRPO works by sampling multiple answers, comparing them, and updating the model. But if the model is too weak, <em>all</em> answers are wrong → no useful signal.
+    </p>
+    <div style="display:flex; gap:clamp(1rem,2.5vw,2rem); align-items:flex-start;">
+      <div style="flex:1;">
+        <p style="font-size:var(--small-size); font-weight:700; color:var(--blue-dark); margin:0 0 0.4em;">Empirical evidence (TabMWP, GRPO):</p>
+        <table style="width:100%; border-collapse:collapse; font-size:var(--small-size);">
+          <thead>
+            <tr style="background:var(--blue-dark); color:white;">
+              <th style="padding:0.4em 0.6em; text-align:left;">Model</th>
+              <th style="padding:0.4em 0.6em; text-align:center;">Init Acc.</th>
+              <th style="padding:0.4em 0.6em; text-align:center;">Final Acc.</th>
+              <th style="padding:0.4em 0.6em; text-align:center;">Gain</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background:var(--gray-light);"><td style="padding:0.4em 0.6em;">Qwen2.5-0.5B</td><td style="padding:0.4em 0.6em; text-align:center;">21.4%</td><td style="padding:0.4em 0.6em; text-align:center;">28.7%</td><td style="padding:0.4em 0.6em; text-align:center; color:#dc2626;">+7.3</td></tr>
+            <tr><td style="padding:0.4em 0.6em;">Qwen2.5-1.5B</td><td style="padding:0.4em 0.6em; text-align:center;">31.2%</td><td style="padding:0.4em 0.6em; text-align:center;">44.0%</td><td style="padding:0.4em 0.6em; text-align:center; color:#d97706;">+12.8</td></tr>
+            <tr style="background:var(--blue-light);"><td style="padding:0.4em 0.6em; font-weight:700;">Qwen2.5-3B ⭐</td><td style="padding:0.4em 0.6em; text-align:center; font-weight:700;">55.2%</td><td style="padding:0.4em 0.6em; text-align:center; font-weight:700;">87.6%</td><td style="padding:0.4em 0.6em; text-align:center; color:#16a34a; font-weight:700;">+32.4</td></tr>
+            <tr><td style="padding:0.4em 0.6em;">Qwen2.5-7B</td><td style="padding:0.4em 0.6em; text-align:center;">81.8%</td><td style="padding:0.4em 0.6em; text-align:center;">91.2%</td><td style="padding:0.4em 0.6em; text-align:center; color:#d97706;">+9.4</td></tr>
+          </tbody>
+        </table>
+        <div style="display:flex; justify-content:center; margin-top:clamp(0.45rem,1vh,0.8rem);">
+          <img src="images/table-introduction.png" alt="Cold-start illustration" style="max-width:min(52vw,680px); max-height:min(31vh,320px); object-fit:contain; border-radius:6px;">
+        </div>
+      </div>
+      <div style="flex:1;">
+        <p style="font-size:var(--small-size); font-weight:700; color:var(--blue-dark); margin:0 0 0.4em;">Why? Reward variance theory:</p>
+        <div style="background:var(--gray-light); padding:clamp(0.6rem,1.2vw,1rem); border-radius:6px;">
+          <p style="font-size:var(--small-size); color:var(--gray-text); margin:0; line-height:1.7;">
+            If reward ≈ Bernoulli(p), variance = p(1−p)<br><br>
+            • p = 0.21 → variance = <strong>0.17</strong> (too low, mostly wrong)<br>
+            • p = 0.55 → variance = <strong>0.25</strong> ✅ (best signal)<br>
+            • p = 0.82 → variance = <strong>0.15</strong> (too low, mostly right)<br><br>
+            <strong>Sweet spot: ~50% initial accuracy</strong>
+          </p>
+        </div>
+        <div style="margin-top:0.5em; background:var(--blue-light); padding:0.5em 0.8em; border-radius:4px;">
+          <p style="font-size:var(--small-size); color:var(--blue-dark); margin:0; font-weight:600;">Solution: Use warm-up data to move the model into the "sweet spot" before RL starts.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">17 / 31</div>
+</section>
+
+<!-- SLIDE 17: THREE STAGE FRAMEWORK -->
+<section class="slide" id="s17">
+  <div class="top-bar"></div>
+  <div class="slide-content">
+    <div class="section-label">Part II · Table</div>
+    <h2 style="font-size:var(--h2-size); color:var(--blue-dark);">Table-R1: Three-Stage Framework</h2>
+    <div style="margin-top:clamp(0.6rem,1.5vh,1.1rem); display:flex; justify-content:center;">
+      <img src="images/table-framework.png" alt="Table-R1 framework" style="width:100%; max-width:min(94vw,1280px); max-height:min(66vh,700px); object-fit:contain; border-radius:6px;">
+    </div>
+    <div style="margin-top:clamp(0.4rem,1vh,0.8rem); background:var(--gray-light); padding:clamp(0.38rem,0.75vw,0.65rem) clamp(0.7rem,1.4vw,1.1rem); border-radius:4px;">
+      <p style="font-size:var(--small-size); color:var(--gray-text); margin:0;">
+        Stage 1 Warm-up (SFT) → Stage 2 PA-GRPO (TEDS reward) → Stage 3 HC-GRPO (hint-completion RL) | Datasets: WTQ, TabMWP, HiTab, TabFact, TAT-QA, InfoTabs
+      </p>
+    </div>
+  </div>
+  <div class="slide-num">18 / 31</div>
+</section>
+
+<!-- SLIDE 18: HC-GRPO EXAMPLE -->
+<section class="slide" id="s18">
+  <div class="top-bar"></div>
+  <div class="slide-content">
+    <div class="section-label">Part II · Table · HC-GRPO Example</div>
+    <h2 style="font-size:var(--h2-size); color:var(--blue-dark);">Hint-Completion: A Concrete Example</h2>
+    <p style="font-size:var(--small-size); color:var(--gray-text); margin:clamp(0.2rem,0.5vh,0.4rem) 0 clamp(0.5rem,1.2vh,1rem);">
+      Challenge: For a 5-step reasoning chain, the model must get all 5 steps right. Probability drops exponentially.
+    </p>
+    <div style="display:flex; gap:clamp(1rem,2.5vw,2rem); align-items:flex-start;">
+      <div style="flex:1;">
+        <p style="font-size:var(--small-size); font-weight:700; color:var(--blue-dark); margin:0 0 0.4em;">Original full solution (5 steps):</p>
+        <div style="background:var(--gray-light); padding:clamp(0.6rem,1.2vw,1rem); border-radius:6px; font-size:var(--small-size); color:var(--gray-text); line-height:1.7;">
+          <span style="color:var(--blue-dark);">Q: In the table, what is the total revenue for Q1 and Q2?</span><br>
+          s1: Look at Q1 row → revenue = $120M<br>
+          s2: Look at Q2 row → revenue = $145M<br>
+          s3: Add them: 120 + 145 = 265<br>
+          s4: Unit is million dollars<br>
+          s5: <strong>Answer: $265M</strong>
+        </div>
+      </div>
+      <div style="display:flex; align-items:center; color:var(--blue-mid); font-size:clamp(1rem,2vw,1.5rem); flex-shrink:0;">→</div>
+      <div style="flex:1.2;">
+        <p style="font-size:var(--small-size); font-weight:700; color:var(--blue-dark); margin:0 0 0.4em;">HC splits (split at step j=2, j=3):</p>
+        <div style="display:flex; flex-direction:column; gap:0.5em;">
+          <div style="background:var(--blue-light); padding:clamp(0.5rem,1vw,0.8rem); border-radius:6px; font-size:var(--small-size); color:var(--blue-dark); line-height:1.6;">
+            <strong>Split 1 (j=2):</strong><br>
+            <span style="background:#bfdbfe; padding:0.1em 0.3em; border-radius:2px;">Hint: s1+s2 (Q1=$120M, Q2=$145M)</span><br>
+            Model must complete: s3→s4→s5 (just add and answer)
+          </div>
+          <div style="background:var(--blue-light); padding:clamp(0.5rem,1vw,0.8rem); border-radius:6px; font-size:var(--small-size); color:var(--blue-dark); line-height:1.6;">
+            <strong>Split 2 (j=3):</strong><br>
+            <span style="background:#bfdbfe; padding:0.1em 0.3em; border-radius:2px;">Hint: s1+s2+s3 (sum=265)</span><br>
+            Model must complete: s4→s5 (just state unit and answer)
+          </div>
+        </div>
+        <div style="margin-top:0.5em; background:#f0fdf4; border-left:3px solid #16a34a; padding:0.4em 0.7em; border-radius:0 4px 4px 0;">
+          <p style="font-size:var(--small-size); color:#166534; margin:0;">Shorter completion → higher chance of success → more useful reward signal for GRPO</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">19 / 31</div>
+</section>
+
+<!-- SLIDE 19: TABLE MAIN RESULTS -->
+<section class="slide" id="s19">
+  <div class="top-bar"></div>
+  <div class="slide-content">
+    <div class="section-label">Part II · Table · Results</div>
+    <h2 style="font-size:var(--h2-size); color:var(--blue-dark);">Main Results: Full Table from Thesis</h2>
+    <div style="margin-top:clamp(0.55rem,1.3vh,1rem);">
+      <table style="width:auto; max-width:100%; margin:0 auto; border-collapse:collapse; font-size:clamp(0.56rem,0.82vw,0.8rem); line-height:1.22;">
+        <thead>
+          <tr style="background:var(--blue-dark); color:white;">
+            <th style="padding:0.28em 0.4em; text-align:left;">Method</th>
+            <th style="padding:0.28em 0.32em; text-align:center;">Res.</th>
+            <th style="padding:0.28em 0.32em; text-align:center;">TabMWP_I</th>
+            <th style="padding:0.28em 0.32em; text-align:center;">WTQ_I</th>
+            <th style="padding:0.28em 0.32em; text-align:center;">HiTab_I</th>
+            <th style="padding:0.28em 0.32em; text-align:center;">TAT-QA_O</th>
+            <th style="padding:0.28em 0.32em; text-align:center;">TabFact_I</th>
+            <th style="padding:0.28em 0.32em; text-align:center;">InfoTabs_O</th>
+            <th style="padding:0.28em 0.32em; text-align:center;">Avg. I</th>
+            <th style="padding:0.28em 0.32em; text-align:center;">Avg. O</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:#f8fafc; color:#64748b;"><td style="padding:0.22em 0.4em; font-style:italic;" colspan="10">Closed-Source MLLM</td></tr>
+          <tr style="background:var(--gray-light);"><td style="padding:0.28em 0.4em;">OpenAI-o4-mini</td><td style="padding:0.28em 0.32em; text-align:center;">UNK</td><td style="padding:0.28em 0.32em; text-align:center;">86.70</td><td style="padding:0.28em 0.32em; text-align:center;">78.20</td><td style="padding:0.28em 0.32em; text-align:center;">44.80</td><td style="padding:0.28em 0.32em; text-align:center;">56.16</td><td style="padding:0.28em 0.32em; text-align:center;">84.70</td><td style="padding:0.28em 0.32em; text-align:center;">78.30</td><td style="padding:0.28em 0.32em; text-align:center;">73.60</td><td style="padding:0.28em 0.32em; text-align:center; font-weight:700;">67.23</td></tr>
+          <tr><td style="padding:0.28em 0.4em;">GPT-4o</td><td style="padding:0.28em 0.32em; text-align:center;">UNK</td><td style="padding:0.28em 0.32em; text-align:center;">87.59</td><td style="padding:0.28em 0.32em; text-align:center;">64.39</td><td style="padding:0.28em 0.32em; text-align:center;">39.32</td><td style="padding:0.28em 0.32em; text-align:center;">53.85</td><td style="padding:0.28em 0.32em; text-align:center;">73.33</td><td style="padding:0.28em 0.32em; text-align:center;">79.50</td><td style="padding:0.28em 0.32em; text-align:center;">66.16</td><td style="padding:0.28em 0.32em; text-align:center;">66.68</td></tr>
+          <tr style="background:var(--gray-light);"><td style="padding:0.28em 0.4em;">Gemini-2.5-Pro</td><td style="padding:0.28em 0.32em; text-align:center;">UNK</td><td style="padding:0.28em 0.32em; text-align:center; font-weight:700;">89.90</td><td style="padding:0.28em 0.32em; text-align:center; font-weight:700;">80.34</td><td style="padding:0.28em 0.32em; text-align:center; font-weight:700;">46.44</td><td style="padding:0.28em 0.32em; text-align:center;">56.29</td><td style="padding:0.28em 0.32em; text-align:center; font-weight:700;">85.02</td><td style="padding:0.28em 0.32em; text-align:center;">77.15</td><td style="padding:0.28em 0.32em; text-align:center; font-weight:700;">75.43</td><td style="padding:0.28em 0.32em; text-align:center;">66.72</td></tr>
+          <tr><td style="padding:0.28em 0.4em;">Claude-3.5-Sonnet</td><td style="padding:0.28em 0.32em; text-align:center;">UNK</td><td style="padding:0.28em 0.32em; text-align:center;">83.30</td><td style="padding:0.28em 0.32em; text-align:center;">71.80</td><td style="padding:0.28em 0.32em; text-align:center;">41.31</td><td style="padding:0.28em 0.32em; text-align:center; font-weight:700;">59.33</td><td style="padding:0.28em 0.32em; text-align:center;">60.08</td><td style="padding:0.28em 0.32em; text-align:center;">70.30</td><td style="padding:0.28em 0.32em; text-align:center;">64.12</td><td style="padding:0.28em 0.32em; text-align:center;">64.82</td></tr>
+
+          <tr style="background:#f8fafc; color:#64748b;"><td style="padding:0.22em 0.4em; font-style:italic;" colspan="10">Open-Source MLLM</td></tr>
+          <tr style="background:var(--gray-light);"><td style="padding:0.28em 0.4em;">Qwen2-VL-2B</td><td style="padding:0.28em 0.32em; text-align:center;">Dyn.</td><td style="padding:0.28em 0.32em; text-align:center;">46.10</td><td style="padding:0.28em 0.32em; text-align:center;">22.30</td><td style="padding:0.28em 0.32em; text-align:center;">22.90</td><td style="padding:0.28em 0.32em; text-align:center;">30.44</td><td style="padding:0.28em 0.32em; text-align:center;">8.90</td><td style="padding:0.28em 0.32em; text-align:center;">24.60</td><td style="padding:0.28em 0.32em; text-align:center;">25.05</td><td style="padding:0.28em 0.32em; text-align:center;">27.52</td></tr>
+          <tr><td style="padding:0.28em 0.4em;">DeepSeek-VL2 4.5B</td><td style="padding:0.28em 0.32em; text-align:center;">Dyn.</td><td style="padding:0.28em 0.32em; text-align:center;">53.75</td><td style="padding:0.28em 0.32em; text-align:center;">40.42</td><td style="padding:0.28em 0.32em; text-align:center;">18.89</td><td style="padding:0.28em 0.32em; text-align:center;">24.11</td><td style="padding:0.28em 0.32em; text-align:center;">13.65</td><td style="padding:0.28em 0.32em; text-align:center;">24.79</td><td style="padding:0.28em 0.32em; text-align:center;">31.68</td><td style="padding:0.28em 0.32em; text-align:center;">24.45</td></tr>
+          <tr style="background:var(--gray-light);"><td style="padding:0.28em 0.4em;">mPLUG-Owl2 7B</td><td style="padding:0.28em 0.32em; text-align:center;">448</td><td style="padding:0.28em 0.32em; text-align:center;">6.83</td><td style="padding:0.28em 0.32em; text-align:center;">0.67</td><td style="padding:0.28em 0.32em; text-align:center;">0.13</td><td style="padding:0.28em 0.32em; text-align:center;">0.39</td><td style="padding:0.28em 0.32em; text-align:center;">8.21</td><td style="padding:0.28em 0.32em; text-align:center;">26.19</td><td style="padding:0.28em 0.32em; text-align:center;">3.96</td><td style="padding:0.28em 0.32em; text-align:center;">13.29</td></tr>
+          <tr><td style="padding:0.28em 0.4em;">Monkey 7B</td><td style="padding:0.28em 0.32em; text-align:center;">896</td><td style="padding:0.28em 0.32em; text-align:center;">13.26</td><td style="padding:0.28em 0.32em; text-align:center;">19.07</td><td style="padding:0.28em 0.32em; text-align:center;">6.41</td><td style="padding:0.28em 0.32em; text-align:center;">12.31</td><td style="padding:0.28em 0.32em; text-align:center;">22.56</td><td style="padding:0.28em 0.32em; text-align:center;">22.11</td><td style="padding:0.28em 0.32em; text-align:center;">15.33</td><td style="padding:0.28em 0.32em; text-align:center;">17.21</td></tr>
+          <tr style="background:var(--gray-light);"><td style="padding:0.28em 0.4em;">Qwen2-VL-7B-Ins</td><td style="padding:0.28em 0.32em; text-align:center;">Dyn.</td><td style="padding:0.28em 0.32em; text-align:center;">49.51</td><td style="padding:0.28em 0.32em; text-align:center;">19.73</td><td style="padding:0.28em 0.32em; text-align:center;">5.33</td><td style="padding:0.28em 0.32em; text-align:center;">20.85</td><td style="padding:0.28em 0.32em; text-align:center;">40.00</td><td style="padding:0.28em 0.32em; text-align:center;">46.56</td><td style="padding:0.28em 0.32em; text-align:center;">28.64</td><td style="padding:0.28em 0.32em; text-align:center;">33.71</td></tr>
+          <tr><td style="padding:0.28em 0.4em;">Qwen2-VL-7B</td><td style="padding:0.28em 0.32em; text-align:center;">Dyn.</td><td style="padding:0.28em 0.32em; text-align:center;">63.80</td><td style="padding:0.28em 0.32em; text-align:center;">46.50</td><td style="padding:0.28em 0.32em; text-align:center;">33.10</td><td style="padding:0.28em 0.32em; text-align:center;">46.50</td><td style="padding:0.28em 0.32em; text-align:center;">7.40</td><td style="padding:0.28em 0.32em; text-align:center;">32.80</td><td style="padding:0.28em 0.32em; text-align:center;">37.70</td><td style="padding:0.28em 0.32em; text-align:center;">39.65</td></tr>
+          <tr style="background:var(--gray-light);"><td style="padding:0.28em 0.4em;">LLaVA-v1.5 7B</td><td style="padding:0.28em 0.32em; text-align:center;">336</td><td style="padding:0.28em 0.32em; text-align:center;">6.05</td><td style="padding:0.28em 0.32em; text-align:center;">1.24</td><td style="padding:0.28em 0.32em; text-align:center;">2.03</td><td style="padding:0.28em 0.32em; text-align:center;">2.97</td><td style="padding:0.28em 0.32em; text-align:center;">18.90</td><td style="padding:0.28em 0.32em; text-align:center;">28.31</td><td style="padding:0.28em 0.32em; text-align:center;">7.06</td><td style="padding:0.28em 0.32em; text-align:center;">15.64</td></tr>
+          <tr><td style="padding:0.28em 0.4em;">Table-LLaVA 7B</td><td style="padding:0.28em 0.32em; text-align:center;">336</td><td style="padding:0.28em 0.32em; text-align:center;">57.78</td><td style="padding:0.28em 0.32em; text-align:center;">18.43</td><td style="padding:0.28em 0.32em; text-align:center;">10.09</td><td style="padding:0.28em 0.32em; text-align:center;">12.82*</td><td style="padding:0.28em 0.32em; text-align:center;">59.85</td><td style="padding:0.28em 0.32em; text-align:center;">65.26*</td><td style="padding:0.28em 0.32em; text-align:center;">36.54</td><td style="padding:0.28em 0.32em; text-align:center;">39.04</td></tr>
+          <tr style="background:var(--gray-light);"><td style="padding:0.28em 0.4em;">Table-LLaVA 13B</td><td style="padding:0.28em 0.32em; text-align:center;">336</td><td style="padding:0.28em 0.32em; text-align:center;">59.77</td><td style="padding:0.28em 0.32em; text-align:center;">20.41</td><td style="padding:0.28em 0.32em; text-align:center;">10.85</td><td style="padding:0.28em 0.32em; text-align:center;">15.67*</td><td style="padding:0.28em 0.32em; text-align:center;">65.00</td><td style="padding:0.28em 0.32em; text-align:center;">66.91*</td><td style="padding:0.28em 0.32em; text-align:center;">39.01</td><td style="padding:0.28em 0.32em; text-align:center;">41.29</td></tr>
+          <tr><td style="padding:0.28em 0.4em;">Qwen2-VL-72B</td><td style="padding:0.28em 0.32em; text-align:center;">Dyn.</td><td style="padding:0.28em 0.32em; text-align:center;">81.95</td><td style="padding:0.28em 0.32em; text-align:center;">65.70</td><td style="padding:0.28em 0.32em; text-align:center;">44.04</td><td style="padding:0.28em 0.32em; text-align:center;">52.23</td><td style="padding:0.28em 0.32em; text-align:center;">73.45</td><td style="padding:0.28em 0.32em; text-align:center;">72.82</td><td style="padding:0.28em 0.32em; text-align:center;">66.29</td><td style="padding:0.28em 0.32em; text-align:center;">62.53</td></tr>
+          <tr style="background:var(--gray-light);"><td style="padding:0.28em 0.4em;">QVQ-72B-Preview</td><td style="padding:0.28em 0.32em; text-align:center;">Dyn.</td><td style="padding:0.28em 0.32em; text-align:center; font-weight:700;">86.20</td><td style="padding:0.28em 0.32em; text-align:center; font-weight:700;">68.20</td><td style="padding:0.28em 0.32em; text-align:center; font-weight:700;">45.70</td><td style="padding:0.28em 0.32em; text-align:center; font-weight:700;">55.48</td><td style="padding:0.28em 0.32em; text-align:center; font-weight:700;">77.68</td><td style="padding:0.28em 0.32em; text-align:center; font-weight:700;">74.64</td><td style="padding:0.28em 0.32em; text-align:center; font-weight:700;">69.45</td><td style="padding:0.28em 0.32em; text-align:center; font-weight:700;">65.06</td></tr>
+
+          <tr style="background:#f8fafc; color:#64748b;"><td style="padding:0.22em 0.4em; font-style:italic;" colspan="10">Optimized MLLM</td></tr>
+          <tr style="background:var(--gray-light);"><td style="padding:0.28em 0.4em;">Qwen2-VL-2B-SFT</td><td style="padding:0.28em 0.32em; text-align:center;">Dyn.</td><td style="padding:0.28em 0.32em; text-align:center;">70.00</td><td style="padding:0.28em 0.32em; text-align:center;">31.00</td><td style="padding:0.28em 0.32em; text-align:center;">31.90</td><td style="padding:0.28em 0.32em; text-align:center;">19.69</td><td style="padding:0.28em 0.32em; text-align:center;">51.70</td><td style="padding:0.28em 0.32em; text-align:center;">37.40</td><td style="padding:0.28em 0.32em; text-align:center;">46.15</td><td style="padding:0.28em 0.32em; text-align:center;">28.55</td></tr>
+          <tr><td style="padding:0.28em 0.4em;">Qwen2-VL-2B-GRPO</td><td style="padding:0.28em 0.32em; text-align:center;">Dyn.</td><td style="padding:0.28em 0.32em; text-align:center;">71.40</td><td style="padding:0.28em 0.32em; text-align:center; font-weight:700;">35.30</td><td style="padding:0.28em 0.32em; text-align:center;">35.20</td><td style="padding:0.28em 0.32em; text-align:center; font-weight:700;">29.02</td><td style="padding:0.28em 0.32em; text-align:center;">22.70</td><td style="padding:0.28em 0.32em; text-align:center;">29.00</td><td style="padding:0.28em 0.32em; text-align:center;">41.15</td><td style="padding:0.28em 0.32em; text-align:center;">29.01</td></tr>
+          <tr style="background:var(--blue-light);"><td style="padding:0.28em 0.4em; font-weight:700; color:var(--blue-dark);">Qwen2-VL-2B-Table-R1 (Ours)</td><td style="padding:0.28em 0.32em; text-align:center;">Dyn.</td><td style="padding:0.28em 0.32em; text-align:center; font-weight:700;">83.20</td><td style="padding:0.28em 0.32em; text-align:center;">34.40</td><td style="padding:0.28em 0.32em; text-align:center; font-weight:700;">37.30</td><td style="padding:0.28em 0.32em; text-align:center;">26.42</td><td style="padding:0.28em 0.32em; text-align:center; font-weight:700;">60.90</td><td style="padding:0.28em 0.32em; text-align:center; font-weight:700;">43.60</td><td style="padding:0.28em 0.32em; text-align:center; font-weight:800; color:var(--blue-dark);">53.95</td><td style="padding:0.28em 0.32em; text-align:center; font-weight:800; color:var(--blue-dark);">35.01</td></tr>
+          <tr style="background:var(--gray-light);"><td style="padding:0.28em 0.4em;">Qwen2-VL-7B-SFT</td><td style="padding:0.28em 0.32em; text-align:center;">Dyn.</td><td style="padding:0.28em 0.32em; text-align:center;">90.30</td><td style="padding:0.28em 0.32em; text-align:center;">46.80</td><td style="padding:0.28em 0.32em; text-align:center;">48.50</td><td style="padding:0.28em 0.32em; text-align:center;">37.82</td><td style="padding:0.28em 0.32em; text-align:center;">73.20</td><td style="padding:0.28em 0.32em; text-align:center;">57.60</td><td style="padding:0.28em 0.32em; text-align:center;">64.70</td><td style="padding:0.28em 0.32em; text-align:center;">47.71</td></tr>
+          <tr><td style="padding:0.28em 0.4em;">Qwen2-VL-7B-GRPO</td><td style="padding:0.28em 0.32em; text-align:center;">Dyn.</td><td style="padding:0.28em 0.32em; text-align:center;">89.20</td><td style="padding:0.28em 0.32em; text-align:center; font-weight:700;">53.20</td><td style="padding:0.28em 0.32em; text-align:center;">54.70</td><td style="padding:0.28em 0.32em; text-align:center; font-weight:700;">51.68</td><td style="padding:0.28em 0.32em; text-align:center;">11.90</td><td style="padding:0.28em 0.32em; text-align:center;">41.60</td><td style="padding:0.28em 0.32em; text-align:center;">52.25</td><td style="padding:0.28em 0.32em; text-align:center;">46.64</td></tr>
+          <tr style="background:var(--blue-light);"><td style="padding:0.28em 0.4em; font-weight:800; color:var(--blue-dark);">Qwen2-VL-7B-Table-R1 (Ours)</td><td style="padding:0.28em 0.32em; text-align:center;">Dyn.</td><td style="padding:0.28em 0.32em; text-align:center; font-weight:700;">92.60</td><td style="padding:0.28em 0.32em; text-align:center;">50.30</td><td style="padding:0.28em 0.32em; text-align:center; font-weight:700;">58.20</td><td style="padding:0.28em 0.32em; text-align:center;">48.06</td><td style="padding:0.28em 0.32em; text-align:center; font-weight:700;">73.40</td><td style="padding:0.28em 0.32em; text-align:center; font-weight:700;">62.80</td><td style="padding:0.28em 0.32em; text-align:center; font-weight:800; color:var(--blue-dark);">68.63</td><td style="padding:0.28em 0.32em; text-align:center; font-weight:800; color:var(--blue-dark);">55.43</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:clamp(0.3rem,0.8vh,0.6rem); background:#f0fdf4; border-left:3px solid #16a34a; padding:0.3em 0.7em; border-radius:0 4px 4px 0;">
+        <p style="font-size:clamp(0.72rem,1.02vw,0.95rem); color:#166534; margin:0;">7B ours: Avg. In 68.63 (+3.93 vs SFT, +16.38 vs GRPO), Avg. Out 55.43 (+7.72 vs SFT, +8.79 vs GRPO). * denotes trained on corresponding dataset.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">20 / 31</div>
+</section>
+
+<!-- SLIDE 20: TABLE ABLATION -->
+<section class="slide" id="s20">
+  <div class="top-bar"></div>
+  <div class="slide-content">
+    <div class="section-label">Part II · Table · Ablation</div>
+    <h2 style="font-size:var(--h2-size); color:var(--blue-dark);">Ablation: Each Component Matters</h2>
+    <div style="display:flex; gap:clamp(1rem,2.5vw,2rem); margin-top:clamp(0.8rem,2vh,1.5rem);">
+      <div style="flex:1;">
+        <p style="font-size:var(--small-size); font-weight:700; color:var(--blue-dark); margin:0 0 0.4em;">Effect of Warm-up (2B model):</p>
+        <table style="width:100%; border-collapse:collapse; font-size:var(--small-size);">
+          <thead><tr style="background:var(--blue-dark); color:white;"><th style="padding:0.4em 0.6em; text-align:left;">Method</th><th style="padding:0.4em 0.6em; text-align:center;">Avg. QA</th><th style="padding:0.4em 0.6em; text-align:center;">TabFact</th></tr></thead>
+          <tbody>
+            <tr style="background:var(--blue-light);"><td style="padding:0.4em 0.6em; font-weight:700;">Table-R1</td><td style="padding:0.4em 0.6em; text-align:center; font-weight:700;">51.4</td><td style="padding:0.4em 0.6em; text-align:center; font-weight:700;">60.9</td></tr>
+            <tr style="background:var(--gray-light);"><td style="padding:0.4em 0.6em;">w/o Warm-up</td><td style="padding:0.4em 0.6em; text-align:center; color:#dc2626;">38.9</td><td style="padding:0.4em 0.6em; text-align:center; color:#dc2626;">20.5</td></tr>
+            <tr><td style="padding:0.4em 0.6em; color:#dc2626;">Drop</td><td style="padding:0.4em 0.6em; text-align:center; color:#dc2626;">−12.5</td><td style="padding:0.4em 0.6em; text-align:center; color:#dc2626;">−40.4</td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:var(--small-size); color:var(--gray-text); margin-top:0.4em;">Without warm-up, TabFact drops 40%! The model can't learn from RL without a good starting point.</p>
+      </div>
+      <div style="flex:1;">
+        <p style="font-size:var(--small-size); font-weight:700; color:var(--blue-dark); margin:0 0 0.4em;">Effect of HC splits (2B, TabMWP):</p>
+        <table style="width:100%; border-collapse:collapse; font-size:var(--small-size);">
+          <thead><tr style="background:var(--blue-dark); color:white;"><th style="padding:0.4em 0.6em; text-align:left;">Method</th><th style="padding:0.4em 0.6em; text-align:center;">Accuracy</th></tr></thead>
+          <tbody>
+            <tr style="background:var(--gray-light);"><td style="padding:0.4em 0.6em;">W<sub>qs</sub> (no HC)</td><td style="padding:0.4em 0.6em; text-align:center;">60.2</td></tr>
+            <tr><td style="padding:0.4em 0.6em;">W<sub>qs</sub> + GRPO</td><td style="padding:0.4em 0.6em; text-align:center;">76.4</td></tr>
+            <tr style="background:var(--gray-light);"><td style="padding:0.4em 0.6em;">W<sub>hc</sub> (HC warm-up)</td><td style="padding:0.4em 0.6em; text-align:center;">63.6</td></tr>
+            <tr style="background:var(--blue-light);"><td style="padding:0.4em 0.6em; font-weight:700;">W<sub>hc</sub> + HC-GRPO</td><td style="padding:0.4em 0.6em; text-align:center; font-weight:700; color:var(--blue-dark);">83.0</td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:var(--small-size); color:var(--gray-text); margin-top:0.4em;">HC-GRPO (+6.6 over standard GRPO) — bounding the exploration space makes a real difference.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">21 / 31</div>
+</section>
+
+<!-- SLIDE 21: TABLE SUMMARY -->
+<section class="slide" id="s21">
+  <div class="top-bar"></div>
+  <div class="slide-content">
+    <div class="section-label">Part II · Table · Summary</div>
+    <h2 style="font-size:var(--h2-size); color:var(--blue-dark);">Part II: Key Takeaways</h2>
+    <div style="display:flex; flex-direction:column; gap:clamp(0.6rem,1.5vh,1.2rem); margin-top:clamp(0.8rem,2vh,1.5rem);">
+      <div style="display:flex; gap:clamp(0.8rem,1.5vw,1.2rem); align-items:flex-start; background:var(--gray-light); padding:clamp(0.6rem,1.2vw,1rem); border-radius:6px;">
+        <div style="font-size:clamp(1.2rem,2.5vw,1.8rem); flex-shrink:0;">✅</div>
+        <div>
+          <p style="font-size:var(--body-size); font-weight:700; color:var(--text-dark); margin:0 0 0.2em;">Warm-up is Essential for RL Stability</p>
+          <p style="font-size:var(--small-size); color:var(--gray-text); margin:0;">Without warm-up, GRPO can completely fail (−40% on TabFact). Moving the model to a "sweet spot" initial accuracy is a prerequisite for effective RL.</p>
+        </div>
+      </div>
+      <div style="display:flex; gap:clamp(0.8rem,1.5vw,1.2rem); align-items:flex-start; background:var(--blue-light); padding:clamp(0.6rem,1.2vw,1rem); border-radius:6px;">
+        <div style="font-size:clamp(1.2rem,2.5vw,1.8rem); flex-shrink:0;">✅</div>
+        <div>
+          <p style="font-size:var(--body-size); font-weight:700; color:var(--blue-dark); margin:0 0 0.2em;">Hint-Completion Bounds the Exploration Space</p>
+          <p style="font-size:var(--small-size); color:var(--blue-dark); margin:0;">By giving the model a partial reasoning prefix as a "hint", we reduce the complexity of each completion task. More correct rollouts → better GRPO signal.</p>
+        </div>
+      </div>
+      <div style="display:flex; gap:clamp(0.8rem,1.5vw,1.2rem); align-items:flex-start; background:var(--gray-light); padding:clamp(0.6rem,1.2vw,1rem); border-radius:6px;">
+        <div style="font-size:clamp(1.2rem,2.5vw,1.8rem); flex-shrink:0;">✅</div>
+        <div>
+          <p style="font-size:var(--body-size); font-weight:700; color:var(--text-dark); margin:0 0 0.2em;">Data-Side Interventions Generalize</p>
+          <p style="font-size:var(--small-size); color:var(--gray-text); margin:0;">Table-R1 improves not just on seen datasets (held-in) but also on unseen ones (held-out +7.7%), showing that better data design leads to better generalization.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">22 / 31</div>
+</section>
+
+<!-- SLIDE 22: CROSS-DOMAIN SYNTHESIS -->
+<section class="slide" id="s22">
+  <div class="top-bar"></div>
+  <div class="slide-content">
+    <div class="section-label">Cross-Domain Synthesis</div>
+    <h2 style="font-size:var(--h2-size); color:var(--blue-dark);">Three Mechanisms Across Both Domains</h2>
+    <div style="margin-top:clamp(0.8rem,2vh,1.5rem); overflow-x:auto;">
+      <table style="width:100%; border-collapse:collapse; font-size:var(--small-size);">
+        <thead>
+          <tr style="background:var(--blue-dark); color:white;">
+            <th style="padding:0.5em 0.8em; text-align:left;">Mechanism</th>
+            <th style="padding:0.5em 0.8em; text-align:center;">Geometry (Part I)</th>
+            <th style="padding:0.5em 0.8em; text-align:center;">Table (Part II)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:var(--blue-light);">
+            <td style="padding:0.5em 0.8em; font-weight:700; color:var(--blue-dark);">① Representation Enrichment</td>
+            <td style="padding:0.5em 0.8em; text-align:center;">DSL → PAL + CoT-PAL + CoT-Program<br><span style="color:var(--gray-text);">4 diverse formats</span></td>
+            <td style="padding:0.5em 0.8em; text-align:center;">Diverse perception instructions<br><span style="color:var(--gray-text);">TEDS continuous reward</span></td>
+          </tr>
+          <tr style="background:var(--gray-light);">
+            <td style="padding:0.5em 0.8em; font-weight:700; color:var(--blue-dark);">② Initialization Shaping</td>
+            <td style="padding:0.5em 0.8em; text-align:center; color:#94a3b8;">— (SFT only, not needed)</td>
+            <td style="padding:0.5em 0.8em; text-align:center;">Warm-up SFT stage<br><span style="color:var(--gray-text);">Moves model to "sweet spot"</span></td>
+          </tr>
+          <tr style="background:var(--blue-light);">
+            <td style="padding:0.5em 0.8em; font-weight:700; color:var(--blue-dark);">③ Exploration Bounding</td>
+            <td style="padding:0.5em 0.8em; text-align:center;">Execution-based verification<br><span style="color:var(--gray-text);">Filters wrong PAL traces</span></td>
+            <td style="padding:0.5em 0.8em; text-align:center;">Hint-Completion partitioning<br><span style="color:var(--gray-text);">Bounds rollout horizon</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:clamp(0.6rem,1.5vh,1.2rem); background:var(--blue-light); padding:clamp(0.5rem,1vw,0.8rem) clamp(0.8rem,1.5vw,1.2rem); border-radius:4px;">
+      <p style="font-size:var(--body-size); color:var(--blue-dark); margin:0; font-weight:600;">
+        The same three data-side mechanisms appear in both domains — suggesting a general framework for adapting MLLMs to specialized tasks.
+      </p>
+    </div>
+  </div>
+  <div class="slide-num">23 / 31</div>
+</section>
+
+<!-- SLIDE 23: CONTRIBUTIONS -->
+<section class="slide" id="s23">
+  <div class="top-bar"></div>
+  <div class="slide-content">
+    <div class="section-label">Contributions</div>
+    <h2 style="font-size:var(--h2-size); color:var(--blue-dark);">Summary of Contributions</h2>
+    <div style="display:flex; flex-direction:column; gap:clamp(0.6rem,1.5vh,1.2rem); margin-top:clamp(0.8rem,2vh,1.5rem);">
+      <div style="background:var(--gray-light); border-left:4px solid var(--blue-mid); padding:clamp(0.6rem,1.2vw,1rem); border-radius:0 6px 6px 0;">
+        <p style="font-size:var(--body-size); font-weight:700; color:var(--blue-dark); margin:0 0 0.2em;">① Multi-View Synthesis Paradigm for Geometry</p>
+        <p style="font-size:var(--small-size); color:var(--gray-text); margin:0;">Designed a pipeline to transform opaque DSL into 4 supervision formats. Qwen3-VL-8B: 58.6% → <strong>71.2%</strong> on PGPS9K.</p>
+      </div>
+      <div style="background:var(--gray-light); border-left:4px solid var(--blue-mid); padding:clamp(0.6rem,1.2vw,1rem); border-radius:0 6px 6px 0;">
+        <p style="font-size:var(--body-size); font-weight:700; color:var(--blue-dark); margin:0 0 0.2em;">② Empirical Characterization of Initialization in Tabular RL</p>
+        <p style="font-size:var(--small-size); color:var(--gray-text); margin:0;">Showed that initial policy accuracy is a key factor for GRPO. Motivated warm-up data construction as a prerequisite for stable RL.</p>
+      </div>
+      <div style="background:var(--gray-light); border-left:4px solid var(--blue-mid); padding:clamp(0.6rem,1.2vw,1rem); border-radius:0 6px 6px 0;">
+        <p style="font-size:var(--body-size); font-weight:700; color:var(--blue-dark); margin:0 0 0.2em;">③ Hint-Completion Synthesis for Table Understanding</p>
+        <p style="font-size:var(--small-size); color:var(--gray-text); margin:0;">Introduced trajectory partitioning to bound exploration space. Qwen2-VL-7B: SFT 64.7%/47.7% → Table-R1 <strong>68.6%/55.4%</strong> (held-in/held-out).</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">24 / 31</div>
+</section>
+
+<!-- SLIDE 24: LIMITATIONS & FUTURE WORK -->
+<section class="slide" id="s24">
+  <div class="top-bar"></div>
+  <div class="slide-content">
+    <div class="section-label">Limitations &amp; Future Work</div>
+    <h2 style="font-size:var(--h2-size); color:var(--blue-dark);">Limitations &amp; Future Directions</h2>
+    <div style="display:flex; gap:clamp(1rem,2.5vw,2rem); margin-top:clamp(0.8rem,2vh,1.5rem);">
+      <div style="flex:1;">
+        <p style="font-size:var(--small-size); font-weight:700; color:var(--blue-dark); margin:0 0 0.5em;">Current Limitations:</p>
+        <div style="display:flex; flex-direction:column; gap:0.4em;">
+          <div style="background:#fef2f2; border-left:3px solid #ef4444; padding:0.5em 0.8em; border-radius:0 4px 4px 0; font-size:var(--small-size); color:#991b1b;">
+            Geometry: only tested on PGPS9K; other geometry benchmarks not evaluated
+          </div>
+          <div style="background:#fef2f2; border-left:3px solid #ef4444; padding:0.5em 0.8em; border-radius:0 4px 4px 0; font-size:var(--small-size); color:#991b1b;">
+            Table: gains not uniform across all datasets (e.g., WTQ slightly lower than GRPO)
+          </div>
+          <div style="background:#fef2f2; border-left:3px solid #ef4444; padding:0.5em 0.8em; border-radius:0 4px 4px 0; font-size:var(--small-size); color:#991b1b;">
+            Data-side focus: architectural improvements not explored
+          </div>
+        </div>
+      </div>
+      <div style="flex:1;">
+        <p style="font-size:var(--small-size); font-weight:700; color:var(--blue-dark); margin:0 0 0.5em;">Future Directions:</p>
+        <div style="display:flex; flex-direction:column; gap:0.4em;">
+          <div style="background:var(--blue-light); padding:0.5em 0.8em; border-radius:4px; font-size:var(--small-size); color:var(--blue-dark);">
+            🔭 Apply multi-view synthesis to other domains (e.g., scientific charts, medical imaging)
+          </div>
+          <div style="background:var(--blue-light); padding:0.5em 0.8em; border-radius:4px; font-size:var(--small-size); color:var(--blue-dark);">
+            🔭 Adaptive HC splitting — learn where to split based on difficulty
+          </div>
+          <div style="background:var(--blue-light); padding:0.5em 0.8em; border-radius:4px; font-size:var(--small-size); color:var(--blue-dark);">
+            🔭 Combine data-side and architecture-side improvements
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">25 / 31</div>
+</section>
+
+<!-- SLIDE 25: CONCLUSION -->
+<section class="slide" id="s25" style="background:var(--blue-dark);">
+  <div style="height:clamp(4px,0.6vh,8px); background:linear-gradient(90deg,#93c5fd,#3b82f6); flex-shrink:0;"></div>
+  <div class="slide-content" style="justify-content:center; align-items:center; text-align:center;">
+    <div style="max-width:min(94vw,1120px); width:100%;">
+      <div style="font-size:var(--small-size); color:#93c5fd; letter-spacing:0.15em; text-transform:uppercase; font-family:'Archivo',sans-serif; font-weight:700; margin-bottom:clamp(0.8rem,2vh,1.5rem);">Conclusion</div>
+      <h2 style="font-size:clamp(1.4rem,3.5vw,2.8rem); color:white; line-height:1.3; margin-bottom:clamp(1rem,2.5vh,2rem);">
+        Data-side interventions provide a practical path to more reliable multimodal reasoning in specialized domains.
+      </h2>
+      <div style="display:flex; flex-direction:column; gap:0.55em; text-align:left; background:rgba(255,255,255,0.08); padding:clamp(0.85rem,1.6vw,1.3rem) clamp(1rem,2vw,1.6rem); border-radius:8px;">
+        <p style="font-size:clamp(1rem,1.8vw,1.65rem); color:#e2e8f0; margin:0;">✅ Representation enrichment: multi-view supervision improves specialized reasoning versus single-format supervision.</p>
+        <p style="font-size:clamp(1rem,1.8vw,1.65rem); color:#e2e8f0; margin:0;">✅ Initialization shaping: warm-up is necessary for stable RL and prevents catastrophic collapse on hard datasets.</p>
+        <p style="font-size:clamp(1rem,1.8vw,1.65rem); color:#e2e8f0; margin:0;">✅ Exploration bounding: Hint-Completion partitioning reduces search difficulty and improves long-chain reasoning.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num" style="color:#93c5fd;">26 / 31</div>
+</section>
+
+<!-- SLIDE 26: BACKUP - GEO ALGORITHM DETAIL -->
+<section class="slide" id="s26">
+  <div class="top-bar"></div>
+  <div class="slide-content">
+    <div class="section-label">Backup · Geometry</div>
+    <h2 style="font-size:var(--h2-size); color:var(--blue-dark);">PAL Conversion: How It Works Step by Step</h2>
+    <div style="display:flex; gap:clamp(1rem,2.5vw,2rem); margin-top:clamp(0.8rem,2vh,1.5rem);">
+      <div style="flex:1;">
+        <p style="font-size:var(--small-size); font-weight:700; color:var(--blue-dark); margin:0 0 0.4em;">DSL operator types:</p>
+        <div style="background:var(--gray-light); padding:clamp(0.6rem,1.2vw,1rem); border-radius:6px; font-size:var(--small-size); color:var(--gray-text); line-height:1.7;">
+          34 geometric operators (e.g., <code>IsoscelesTriangle</code>, <code>ParallelLines</code>)<br>
+          Each maps to a SymPy equation via a fixed rule table.<br><br>
+          Operand types:<br>
+          • <strong>N</strong>: known values from problem text<br>
+          • <strong>V</strong>: intermediate variables to solve<br>
+          • <strong>C</strong>: constants (π, 180, etc.)
+        </div>
+      </div>
+      <div style="flex:1;">
+        <p style="font-size:var(--small-size); font-weight:700; color:var(--blue-dark); margin:0 0 0.4em;">Verification criteria:</p>
+        <div style="display:flex; flex-direction:column; gap:0.4em;">
+          <div style="background:var(--blue-light); padding:0.4em 0.8em; border-radius:4px; font-size:var(--small-size); color:var(--blue-dark);">1. Script executes without error (timeout: 30s)</div>
+          <div style="background:var(--blue-light); padding:0.4em 0.8em; border-radius:4px; font-size:var(--small-size); color:var(--blue-dark);">2. All solutions are real numbers</div>
+          <div style="background:var(--blue-light); padding:0.4em 0.8em; border-radius:4px; font-size:var(--small-size); color:var(--blue-dark);">3. All solutions are non-negative (lengths/angles)</div>
+          <div style="background:var(--blue-light); padding:0.4em 0.8em; border-radius:4px; font-size:var(--small-size); color:var(--blue-dark);">4. Answer matches gold within ε = 0.001</div>
+        </div>
+        <p style="font-size:var(--small-size); color:var(--gray-text); margin-top:0.5em;">Pass rate: 8,017 / 8,021 = <strong>99.95%</strong></p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">27 / 31</div>
+</section>
+
+<!-- SLIDE 27: BACKUP - GRPO EXPLANATION -->
+<section class="slide" id="s27">
+  <div class="top-bar"></div>
+  <div class="slide-content">
+    <div class="section-label">Backup · Table</div>
+    <h2 style="font-size:var(--h2-size); color:var(--blue-dark);">How GRPO Works (Simplified)</h2>
+    <div style="display:flex; gap:clamp(1rem,2.5vw,2rem); margin-top:clamp(0.8rem,2vh,1.5rem);">
+      <div style="flex:1.2;">
+        <p style="font-size:var(--small-size); font-weight:700; color:var(--blue-dark); margin:0 0 0.4em;">GRPO = Group Relative Policy Optimization</p>
+        <div style="display:flex; flex-direction:column; gap:0.5em;">
+          <div style="background:var(--gray-light); padding:0.5em 0.8em; border-radius:4px; font-size:var(--small-size); color:var(--gray-text); line-height:1.6;">
+            <strong>Step 1:</strong> For each question, sample G=4 answers from the model
+          </div>
+          <div style="background:var(--gray-light); padding:0.5em 0.8em; border-radius:4px; font-size:var(--small-size); color:var(--gray-text); line-height:1.6;">
+            <strong>Step 2:</strong> Score each answer (1 if correct, 0 if wrong)
+          </div>
+          <div style="background:var(--gray-light); padding:0.5em 0.8em; border-radius:4px; font-size:var(--small-size); color:var(--gray-text); line-height:1.6;">
+            <strong>Step 3:</strong> Compute advantage = score − group average
+          </div>
+          <div style="background:var(--blue-light); padding:0.5em 0.8em; border-radius:4px; font-size:var(--small-size); color:var(--blue-dark); line-height:1.6;">
+            <strong>Step 4:</strong> Update model to increase probability of high-advantage answers
+          </div>
+        </div>
+      </div>
+      <div style="flex:1;">
+        <p style="font-size:var(--small-size); font-weight:700; color:var(--blue-dark); margin:0 0 0.4em;">Why it can fail:</p>
+        <div style="background:#fef2f2; padding:clamp(0.6rem,1.2vw,1rem); border-radius:6px; font-size:var(--small-size); color:#991b1b; line-height:1.7;">
+          If all 4 answers are wrong:<br>
+          scores = [0, 0, 0, 0]<br>
+          advantages = [0, 0, 0, 0]<br>
+          → <strong>No gradient, no learning!</strong><br><br>
+          This happens when the model is too weak (cold start) or the task is too hard (long chain).
+        </div>
+        <div style="margin-top:0.5em; background:var(--blue-light); padding:0.5em 0.8em; border-radius:4px; font-size:var(--small-size); color:var(--blue-dark);">
+          HC-GRPO fixes this by making each completion task easier → more correct answers in the group.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">28 / 31</div>
+</section>
+
+<!-- SLIDE 28: BACKUP - DATASET STATS -->
+<section class="slide" id="s28">
+  <div class="top-bar"></div>
+  <div class="slide-content">
+    <div class="section-label">Backup · Table</div>
+    <h2 style="font-size:var(--h2-size); color:var(--blue-dark);">Dataset Overview</h2>
+    <div style="margin-top:clamp(0.8rem,2vh,1.5rem);">
+      <table style="width:100%; border-collapse:collapse; font-size:var(--small-size);">
+        <thead>
+          <tr style="background:var(--blue-dark); color:white;">
+            <th style="padding:0.4em 0.6em; text-align:left;">Dataset</th>
+            <th style="padding:0.4em 0.6em; text-align:center;">Task</th>
+            <th style="padding:0.4em 0.6em; text-align:center;">Table Style</th>
+            <th style="padding:0.4em 0.6em; text-align:center;">Sampled</th>
+            <th style="padding:0.4em 0.6em; text-align:center;">Split</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:var(--gray-light);"><td style="padding:0.4em 0.6em;">WTQ</td><td style="padding:0.4em 0.6em; text-align:center;">Flat TQA</td><td style="padding:0.4em 0.6em; text-align:center;">Web</td><td style="padding:0.4em 0.6em; text-align:center;">8K</td><td style="padding:0.4em 0.6em; text-align:center; color:#16a34a;">Held-in</td></tr>
+          <tr><td style="padding:0.4em 0.6em;">HiTab</td><td style="padding:0.4em 0.6em; text-align:center;">Hierarchical TQA</td><td style="padding:0.4em 0.6em; text-align:center;">Excel</td><td style="padding:0.4em 0.6em; text-align:center;">8K</td><td style="padding:0.4em 0.6em; text-align:center; color:#16a34a;">Held-in</td></tr>
+          <tr style="background:var(--gray-light);"><td style="padding:0.4em 0.6em;">TabMWP</td><td style="padding:0.4em 0.6em; text-align:center;">Numerical Reasoning</td><td style="padding:0.4em 0.6em; text-align:center;">Web</td><td style="padding:0.4em 0.6em; text-align:center;">8K</td><td style="padding:0.4em 0.6em; text-align:center; color:#16a34a;">Held-in</td></tr>
+          <tr><td style="padding:0.4em 0.6em;">TabFact</td><td style="padding:0.4em 0.6em; text-align:center;">Fact Verification</td><td style="padding:0.4em 0.6em; text-align:center;">Excel/MD</td><td style="padding:0.4em 0.6em; text-align:center;">8K</td><td style="padding:0.4em 0.6em; text-align:center; color:#16a34a;">Held-in</td></tr>
+          <tr style="background:var(--blue-light);"><td style="padding:0.4em 0.6em;">TAT-QA</td><td style="padding:0.4em 0.6em; text-align:center;">Financial Reasoning</td><td style="padding:0.4em 0.6em; text-align:center;">Markdown</td><td style="padding:0.4em 0.6em; text-align:center;">—</td><td style="padding:0.4em 0.6em; text-align:center; color:#d97706;">Held-out</td></tr>
+          <tr style="background:var(--blue-light);"><td style="padding:0.4em 0.6em;">InfoTabs</td><td style="padding:0.4em 0.6em; text-align:center;">Fact Verification</td><td style="padding:0.4em 0.6em; text-align:center;">Web</td><td style="padding:0.4em 0.6em; text-align:center;">—</td><td style="padding:0.4em 0.6em; text-align:center; color:#d97706;">Held-out</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:var(--small-size); color:var(--gray-text); margin-top:0.6em;">Held-out datasets are never seen during training — used to test generalization.</p>
+    </div>
+  </div>
+  <div class="slide-num">29 / 31</div>
+</section>
+
+<!-- SLIDE 29: BACKUP - HC SPLITS SENSITIVITY -->
+<section class="slide" id="s29">
+  <div class="top-bar"></div>
+  <div class="slide-content">
+    <div class="section-label">Backup · Table</div>
+    <h2 style="font-size:var(--h2-size); color:var(--blue-dark);">HC Splits Sensitivity Analysis</h2>
+    <div style="margin-top:clamp(0.8rem,2vh,1.5rem);">
+      <p style="font-size:var(--body-size); color:var(--gray-text); margin:0 0 clamp(0.6rem,1.5vh,1.2rem);">How many HC splits per solution should we use? (Qwen2-VL-2B, TabMWP, G=4 rollouts)</p>
+      <table style="width:60%; border-collapse:collapse; font-size:var(--body-size); margin:0 auto;">
+        <thead>
+          <tr style="background:var(--blue-dark); color:white;">
+            <th style="padding:0.5em 1em; text-align:center;">HC Splits</th>
+            <th style="padding:0.5em 1em; text-align:center;">TabMWP Accuracy</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:var(--gray-light);"><td style="padding:0.5em 1em; text-align:center;">1</td><td style="padding:0.5em 1em; text-align:center;">81.5%</td></tr>
+          <tr><td style="padding:0.5em 1em; text-align:center;">2</td><td style="padding:0.5em 1em; text-align:center;">82.6%</td></tr>
+          <tr style="background:var(--blue-light);"><td style="padding:0.5em 1em; text-align:center; font-weight:700;">3 (default)</td><td style="padding:0.5em 1em; text-align:center; font-weight:700; color:var(--blue-dark);">83.2%</td></tr>
+          <tr style="background:var(--gray-light);"><td style="padding:0.5em 1em; text-align:center;">4</td><td style="padding:0.5em 1em; text-align:center;">83.4%</td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:clamp(0.8rem,2vh,1.5rem); background:var(--blue-light); padding:clamp(0.5rem,1vw,0.8rem) clamp(0.8rem,1.5vw,1.2rem); border-radius:4px; max-width:600px; margin-left:auto; margin-right:auto;">
+        <p style="font-size:var(--body-size); color:var(--blue-dark); margin:0;">More splits = more diverse completion problems = better training signal. We use 3 as default: good performance with reasonable data construction cost.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">30 / 31</div>
+</section>
+
+<!-- SLIDE 30: Q&A -->
+<section class="slide" id="s30" style="background:var(--blue-dark);">
+  <div style="height:clamp(4px,0.6vh,8px); background:linear-gradient(90deg,#93c5fd,#3b82f6); flex-shrink:0;"></div>
+  <div class="slide-content" style="justify-content:center; align-items:center; text-align:center;">
+    <div>
+      <div style="font-size:clamp(3rem,8vw,6rem); margin-bottom:clamp(0.8rem,2vh,1.5rem);">🎓</div>
+      <h1 style="font-size:clamp(2rem,5vw,4rem); color:white; margin-bottom:clamp(0.8rem,2vh,1.5rem);">Thank You</h1>
+      <p style="font-size:var(--h3-size); color:#93c5fd; margin-bottom:clamp(1.5rem,4vh,3rem);">Questions &amp; Discussion</p>
+      <div style="background:rgba(255,255,255,0.08); padding:clamp(0.8rem,1.5vw,1.2rem) clamp(1.5rem,3vw,2.5rem); border-radius:8px; display:inline-block;">
+        <p style="font-size:var(--body-size); color:#e2e8f0; margin:0 0 0.4em;"><strong>Shengen Wu</strong></p>
+        <p style="font-size:var(--small-size); color:#93c5fd; margin:0;">MPhil in Artificial Intelligence · HKUST(GZ) · 2026</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num" style="color:#93c5fd;">31 / 31</div>
+</section>
+
+<div class="nav-hint">↑ ↓ or scroll to navigate</div>
+</body>
+</html>
