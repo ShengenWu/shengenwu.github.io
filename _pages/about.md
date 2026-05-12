@@ -54,6 +54,10 @@ Feel free to reach out if you'd like to discuss research or explore potential co
 - *2025.08 - 2025.11*: &nbsp;Data Strategy Intern, <span class="primary-gradient-text">Douyin Group</span>, ByteDance.
 - *2026.01 - Present*: &nbsp;Algorithm Engineer & Researcher, <span class="primary-gradient-text">HiThink Lab</span>, RoyalFlush.
 
+<span class='anchor' id='awards-grants'></span>
+# 🏆 Awards & Grants
+- *2024.09 - Present*: &nbsp;Red Bird MPhil Full Scholarship, <span class="primary-gradient-text">HKUST(GZ)</span><img src='images/hkustgzlogo.png' style="height:1em; vertical-align:middle;">.
+
 
 # 📃 Publications
 
