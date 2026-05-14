@@ -704,8 +704,10 @@ body {
 }
 
 .citation-trend__meta {
-  margin: 0.65rem 0 0;
-  font-size: 0.84rem;
+  margin: 0.75rem 0 0;
+  color: #666 !important;
+  font-size: 0.8em;
+  text-align: center;
 }
 
 @media (max-width: 640px) {
