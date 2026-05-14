@@ -142,6 +142,28 @@ Feel free to reach out if you'd like to discuss research or explore potential co
 
 <!-- Awards, Talks, Services, Internships, Interests, Bond sections removed/cleaned. Please add back if needed. -->
 
+<section class="citation-trend" aria-labelledby="citation-trend-title">
+  <div class="citation-trend__header">
+    <div>
+      <p class="citation-trend__eyebrow">Citation Trend</p>
+      <h2 id="citation-trend-title">OpenAlex citations by year</h2>
+    </div>
+    <div class="citation-trend__total" aria-live="polite">
+      <span id="citation-total">--</span>
+      <small>Total citations</small>
+    </div>
+  </div>
+  <div id="citation-chart" class="citation-trend__chart" role="img" aria-label="Annual citation trend chart">
+    <p class="citation-trend__status">Loading citation trend...</p>
+  </div>
+  <p class="citation-trend__meta">
+    Source: <a id="citation-source-link" href="https://openalex.org" class="link-accent">OpenAlex</a>
+    <span aria-hidden="true">·</span>
+    Last updated: <span id="citation-updated-at">--</span>
+    <span id="citation-sample-note" class="citation-trend__sample-note"></span>
+  </p>
+</section>
+
 <div style="text-align: center; margin-top: 2rem;">
   <a href="mailto:wushengen@outlook.com" class="btn-accent"><i class="fas fa-envelope"></i> Email Me</a>
 </div>
@@ -251,6 +273,109 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       });
     });
+  }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  const chartContainer = document.getElementById('citation-chart');
+  if (!chartContainer) return;
+
+  const totalEl = document.getElementById('citation-total');
+  const updatedEl = document.getElementById('citation-updated-at');
+  const sourceLink = document.getElementById('citation-source-link');
+  const sampleNote = document.getElementById('citation-sample-note');
+  const dataUrl = '/assets/data/openalex-citations.json';
+
+  fetch(dataUrl, { cache: 'no-store' })
+    .then(response => {
+      if (!response.ok) throw new Error('Citation data is unavailable.');
+      return response.json();
+    })
+    .then(renderCitationTrend)
+    .catch(() => {
+      chartContainer.innerHTML = '<p class="citation-trend__status">Citation trend is temporarily unavailable.</p>';
+    });
+
+  function renderCitationTrend(data) {
+    const points = Array.isArray(data.counts_by_year) ? data.counts_by_year : [];
+    if (!points.length) {
+      chartContainer.innerHTML = '<p class="citation-trend__status">No citation data yet.</p>';
+      return;
+    }
+
+    const values = points.map(item => Number(item.cited_by_count) || 0);
+    const maxValue = Math.max(...values, 1);
+    const width = 720;
+    const height = 260;
+    const padding = { top: 28, right: 28, bottom: 42, left: 46 };
+    const innerWidth = width - padding.left - padding.right;
+    const innerHeight = height - padding.top - padding.bottom;
+    const xStep = points.length > 1 ? innerWidth / (points.length - 1) : innerWidth;
+    const yTicks = buildTicks(maxValue);
+
+    const coords = points.map((item, index) => {
+      const x = padding.left + (points.length > 1 ? index * xStep : innerWidth / 2);
+      const y = padding.top + innerHeight - ((Number(item.cited_by_count) || 0) / maxValue) * innerHeight;
+      return { x, y, year: item.year, value: Number(item.cited_by_count) || 0 };
+    });
+
+    const linePath = coords.map((point, index) => `${index === 0 ? 'M' : 'L'} ${point.x.toFixed(2)} ${point.y.toFixed(2)}`).join(' ');
+    const areaPath = `${linePath} L ${coords[coords.length - 1].x.toFixed(2)} ${padding.top + innerHeight} L ${coords[0].x.toFixed(2)} ${padding.top + innerHeight} Z`;
+
+    totalEl.textContent = Number(data.total_citations || 0).toLocaleString();
+    updatedEl.textContent = formatDate(data.updated_at);
+    if (data.author_id) sourceLink.href = data.author_id;
+    sampleNote.textContent = data.is_sample_data ? ' · sample data' : '';
+
+    chartContainer.innerHTML = `
+      <svg class="citation-chart-svg" viewBox="0 0 ${width} ${height}" aria-hidden="true" focusable="false">
+        <defs>
+          <linearGradient id="citation-line-gradient" x1="0" x2="1" y1="0" y2="0">
+            <stop offset="0%" stop-color="#1e40af"></stop>
+            <stop offset="55%" stop-color="#3b82f6"></stop>
+            <stop offset="100%" stop-color="#06b6d4"></stop>
+          </linearGradient>
+          <linearGradient id="citation-area-gradient" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.22"></stop>
+            <stop offset="100%" stop-color="#3b82f6" stop-opacity="0"></stop>
+          </linearGradient>
+        </defs>
+        ${yTicks.map(tick => {
+          const y = padding.top + innerHeight - (tick / maxValue) * innerHeight;
+          return `
+            <line class="citation-chart-grid" x1="${padding.left}" y1="${y.toFixed(2)}" x2="${width - padding.right}" y2="${y.toFixed(2)}"></line>
+            <text class="citation-chart-axis" x="${padding.left - 12}" y="${(y + 4).toFixed(2)}" text-anchor="end">${tick}</text>
+          `;
+        }).join('')}
+        <path class="citation-chart-area" d="${areaPath}"></path>
+        <path class="citation-chart-line" d="${linePath}"></path>
+        ${coords.map(point => `
+          <g class="citation-chart-point">
+            <circle cx="${point.x.toFixed(2)}" cy="${point.y.toFixed(2)}" r="4.5"></circle>
+            <text class="citation-chart-value" x="${point.x.toFixed(2)}" y="${(point.y - 12).toFixed(2)}" text-anchor="middle">${point.value}</text>
+            <text class="citation-chart-axis" x="${point.x.toFixed(2)}" y="${height - 12}" text-anchor="middle">${point.year}</text>
+          </g>
+        `).join('')}
+      </svg>
+      <div class="citation-trend__table" aria-label="Citation counts by year">
+        ${coords.map(point => `
+          <span><strong>${point.value}</strong><small>${point.year}</small></span>
+        `).join('')}
+      </div>
+    `;
+  }
+
+  function buildTicks(maxValue) {
+    if (maxValue <= 4) return [0, 1, 2, 3, 4].filter(tick => tick <= Math.max(4, maxValue));
+    const step = Math.ceil(maxValue / 4);
+    return [0, step, step * 2, step * 3, step * 4].filter(tick => tick <= step * 4);
+  }
+
+  function formatDate(value) {
+    if (!value) return '--';
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return value;
+    return date.toISOString().slice(0, 10);
   }
 });
 </script>
