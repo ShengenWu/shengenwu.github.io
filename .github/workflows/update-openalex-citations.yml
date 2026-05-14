@@ -13,6 +13,7 @@ env:
 
 jobs:
   update:
+    if: ${{ vars.USE_OPENALEX_AUTO_UPDATE == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository

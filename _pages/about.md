@@ -324,8 +324,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     totalEl.textContent = Number(data.total_citations || 0).toLocaleString();
     updatedEl.textContent = formatDate(data.updated_at);
-    if (data.author_id) sourceLink.href = data.author_id;
-    sampleNote.textContent = data.is_sample_data ? ' · sample data' : '';
+    sourceLink.textContent = data.source || 'OpenAlex';
+    sourceLink.href = data.source_url || data.author_id || 'https://openalex.org';
+    sampleNote.textContent = data.is_sample_data ? ' · sample data' : data.is_manual_data ? ' · manual data' : '';
 
     chartContainer.innerHTML = `
       <svg class="citation-chart-svg" viewBox="0 0 ${width} ${height}" aria-hidden="true" focusable="false">
