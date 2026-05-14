@@ -1,24 +1,17 @@
 {
-  "source": "Manually maintained",
+  "source": "Google Scholar",
   "source_url": "https://scholar.google.com/citations?user=HMq3kTsAAAAJ&hl=zh-CN",
   "updated_at": "2026-05-14",
-  "author_identifier": "manual",
-  "author_id": "https://openalex.org/A5109240736",
   "display_name": "Shengen Wu",
-  "works_count": null,
   "total_citations": 26,
   "counts_by_year": [
     {
       "year": 2025,
-      "works_count": null,
       "cited_by_count": 7
     },
     {
       "year": 2026,
-      "works_count": null,
       "cited_by_count": 19
     }
-  ],
-  "is_sample_data": false,
-  "is_manual_data": true
+  ]
 }

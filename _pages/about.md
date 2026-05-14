@@ -146,7 +146,7 @@ Feel free to reach out if you'd like to discuss research or explore potential co
   <div class="citation-trend__header">
     <div>
       <p class="citation-trend__eyebrow">Citation Trend</p>
-      <h2 id="citation-trend-title">OpenAlex citations by year</h2>
+      <h2 id="citation-trend-title">Google Scholar citations by year</h2>
     </div>
     <div class="citation-trend__total" aria-live="polite">
       <span id="citation-total">--</span>
@@ -157,7 +157,7 @@ Feel free to reach out if you'd like to discuss research or explore potential co
     <p class="citation-trend__status">Loading citation trend...</p>
   </div>
   <p class="citation-trend__meta">
-    Source: <a id="citation-source-link" href="https://openalex.org" class="link-accent">OpenAlex</a>
+    Source: <a id="citation-source-link" href="https://scholar.google.com/citations?user=HMq3kTsAAAAJ&hl=zh-CN" class="link-accent">Google Scholar</a>
     <span aria-hidden="true">·</span>
     Last updated: <span id="citation-updated-at">--</span>
     <span id="citation-sample-note" class="citation-trend__sample-note"></span>
@@ -284,7 +284,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const updatedEl = document.getElementById('citation-updated-at');
   const sourceLink = document.getElementById('citation-source-link');
   const sampleNote = document.getElementById('citation-sample-note');
-  const dataUrl = '/assets/data/openalex-citations.json';
+  const dataUrl = '/assets/data/citation-trend.json';
 
   fetch(dataUrl, { cache: 'no-store' })
     .then(response => {
@@ -324,9 +324,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     totalEl.textContent = Number(data.total_citations || 0).toLocaleString();
     updatedEl.textContent = formatDate(data.updated_at);
-    sourceLink.textContent = data.source || 'OpenAlex';
-    sourceLink.href = data.source_url || data.author_id || 'https://openalex.org';
-    sampleNote.textContent = data.is_sample_data ? ' · sample data' : data.is_manual_data ? ' · manual data' : '';
+    sourceLink.textContent = data.source || 'Google Scholar';
+    sourceLink.href = data.source_url || 'https://scholar.google.com/citations?user=HMq3kTsAAAAJ&hl=zh-CN';
+    sampleNote.textContent = data.note ? ` · ${data.note}` : '';
 
     chartContainer.innerHTML = `
       <svg class="citation-chart-svg" viewBox="0 0 ${width} ${height}" aria-hidden="true" focusable="false">
