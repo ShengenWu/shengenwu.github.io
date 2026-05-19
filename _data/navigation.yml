@@ -14,3 +14,8 @@ main:
   - title: "Awards & Grants"
     url: "/#awards-grants"
 
+  - title: "Publications"
+    url: "/#publications"
+
+  - title: "Blogs"
+    url: "https://blog.wushengen.com"

@@ -59,6 +59,7 @@ Feel free to reach out if you'd like to discuss research or explore potential co
 - *2024.09 - Present*: &nbsp;Red Bird MPhil Full Scholarship, <span class="primary-gradient-text">HKUST(GZ)</span><img src='images/hkustgzlogo.png' style="height:1em; vertical-align:middle;">.
 
 
+<span class='anchor' id='publications'></span>
 # 📃 Publications
 
 <div id="publications-wrapper">
