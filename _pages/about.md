@@ -1,7 +1,7 @@
 ---
 permalink: /
 title: "Shengen WU - Homepage"  
-excerpt: "M.Phil student at HKUST(GZ)"
+excerpt: "Algorithm Engineer at HiThink Lab, RoyalFlush"
 author_profile: true
 redirect_from: 
   - /about/
@@ -21,7 +21,7 @@ header:
 {% assign url = gsDataBaseUrl | append: "google-scholar-stats/gs_data_shieldsio.json" %}
 
 <span class='anchor' id='about-me'></span>
-My name is <span class="accent-text">Shengen WU</span>. I'm currently pursuing a Master of Philosophy (MPhil) degree at <a href="https://hkust-gz.edu.cn" class="link-accent">The Hong Kong University of Science and Technology (Guangzhou)</a>. I am a member of The Deep Interdisciplinary Intelligence Lab (Di² Lab), advised by Professor <a href="https://facultyprofiles.hkust-gz.edu.cn/faculty-personal-page/YUE-Yutao/yutaoyue" class="link-accent">Yuetao Yue</a>. My research focuses on <span class="accent-text">Large Language Models (LLMs)</span>, with particular interests in <span class="primary-gradient-text">multimodal learning</span> and <span class="primary-gradient-text">reasoning enhancement</span>. I received my Bachelor of Science degree in Financial Mathematics from <a href="https://xjtlu.edu.cn" class="link-accent">Xi'an Jiaotong-Liverpool University</a> and the <a href="https://liverpool.ac.uk" class="link-accent">University of Liverpool</a> in 2024.
+My name is <span class="accent-text">Shengen WU</span>. I'm currently an Algorithm Engineer at <span class="primary-gradient-text">HiThink Lab, RoyalFlush (同花顺)</span>. I received my Master of Philosophy (MPhil) degree in Artificial Intelligence from <a href="https://hkust-gz.edu.cn" class="link-accent">The Hong Kong University of Science and Technology (Guangzhou)</a> in 2026, where I was a member of The Deep Interdisciplinary Intelligence Lab (Di² Lab), advised by Professor <a href="https://facultyprofiles.hkust-gz.edu.cn/faculty-personal-page/YUE-Yutao/yutaoyue" class="link-accent">Yuetao Yue</a>. My research focuses on <span class="accent-text">Large Language Models (LLMs)</span>, with particular interests in <span class="primary-gradient-text">multimodal learning</span> and <span class="primary-gradient-text">reasoning enhancement</span>. I received my Bachelor of Science degree in Financial Mathematics from <a href="https://xjtlu.edu.cn" class="link-accent">Xi'an Jiaotong-Liverpool University</a> and the <a href="https://liverpool.ac.uk" class="link-accent">University of Liverpool</a> in 2024.
 
 <!-- <div class="quote-accent">
   I am passionate about:
@@ -46,18 +46,18 @@ Feel free to reach out if you'd like to discuss research or explore potential co
 
 <span class='anchor' id='-educations'></span>
 # 🏫 Educations
-- *2024.09 - Present*: &nbsp;Master of Philosophy (MPhil) in Artificial Intelligence, <span class="primary-gradient-text">HKUST(GZ)</span><img src='images/hkustgzlogo.png' style="height:1em; vertical-align:middle;">.
+- *2024.09 - 2026.05*: &nbsp;Master of Philosophy (MPhil) in Artificial Intelligence, <span class="primary-gradient-text">HKUST(GZ)</span><img src='images/hkustgzlogo.png' style="height:1em; vertical-align:middle;">.
 - *2020.09 - 2024.06*: &nbsp;Bachelor of Science in Financial Mathematics, <span class="primary-gradient-text">Xi'an Jiaotong-Liverpool University</span> & <span class="primary-gradient-text">University of Liverpool</span>.
 <!-- - *2020.09 - 2024.06*: &nbsp;Bachelor of Science in Financial Mathematics, <span class="primary-gradient-text">Xi'an Jiaotong-Liverpool University</span><img src='images/xjtlu.png' style="height:1em; vertical-align:middle;"> & <span class="primary-gradient-text">University of Liverpool</span><img src='images/liverpool.png' style="height:1em; vertical-align:middle;">. -->
 
 <span class='anchor' id='internships'></span>
-# 💼 Internships
+# 💼 Experience
 - *2025.08 - 2025.11*: &nbsp;Data Strategy Intern, <span class="primary-gradient-text">Douyin Group</span>, ByteDance.
-- *2026.01 - Present*: &nbsp;Algorithm Engineer & Researcher, <span class="primary-gradient-text">HiThink Lab</span>, RoyalFlush.
+- *2026.01 - Present*: &nbsp;Algorithm Engineer, <span class="primary-gradient-text">HiThink Lab, RoyalFlush (同花顺)</span>.
 
 <span class='anchor' id='awards-grants'></span>
 # 🏆 Awards & Grants
-- *2024.09 - Present*: &nbsp;Red Bird MPhil Full Scholarship, <span class="primary-gradient-text">HKUST(GZ)</span><img src='images/hkustgzlogo.png' style="height:1em; vertical-align:middle;">.
+- *2024.09 - 2026.05*: &nbsp;Red Bird MPhil Full Scholarship, <span class="primary-gradient-text">HKUST(GZ)</span><img src='images/hkustgzlogo.png' style="height:1em; vertical-align:middle;">.
 
 
 <span class='anchor' id='publications'></span>
