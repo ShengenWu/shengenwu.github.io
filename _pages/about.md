@@ -37,6 +37,7 @@ Feel free to reach out if you'd like to discuss research or explore potential co
 
 <span class='anchor' id='-news'></span>
 # 🔥 News
+- *06/2026*: &nbsp;🎉 One preprint was online via <span class="accent-text">ArXiv</span>.
 - *01/2026*: &nbsp;🎉 One paper got accepted by <span class="accent-text">The Fourteenth International Conference on Learning Representations (ICLR 2026)</span>. See you in Rio de Janeiro🇧🇷!
 - *09/2025*: &nbsp;🎉 One preprint was online via <span class="accent-text">ArXiv</span>.
 - *09/2025*: &nbsp;🎉 One paper got accepted by <span class="accent-text">The 2025 Conference on Empirical Methods in Natural Language Processing (EMNLP 2025)</span>. See you in Suzhou🇨🇳!
@@ -64,6 +65,21 @@ Feel free to reach out if you'd like to discuss research or explore potential co
 
 <div id="publications-wrapper">
   <div id="filter-container"></div>
+
+  <div class='paper-box floating-card' data-tags="LLM, Latent Reasoning, Reinforcement Learning, Mechanistic Interpretability">
+    <div class='paper-box-image'>
+      <div class="badge pulse-accent">ArXiv Preprint</div>
+      <img src='images/paper-switch.png' alt="SWITCH Overview" width="100%">
+    </div>
+    <div class='paper-box-text'>
+      <h3>Demystifying Hidden-State Recurrence: Switchable Latent Reasoning with On-Policy Reinforcement Learning</h3>
+      <div class="authors">Jiayu Yang, Chao Chen, <span class="primary-gradient-text">Shengen WU</span>, Yinhong Liu, Yuxuan Fan, Lujundong Li, Songning Lai, Chengwei Qin, Zhijiang Guo</div>
+      <div class="venue">ArXiv Preprint (2026)</div>
+      <div class="links">
+        <a href="https://arxiv.org/abs/2606.13106" class="btn-accent"><i class="fas fa-file-alt"></i> Paper</a>
+      </div>
+    </div>
+  </div>
   
   <div class='paper-box floating-card' data-tags="Knowledge Editing, LLM, ICLR, CCF-A">
     <div class='paper-box-image'>
