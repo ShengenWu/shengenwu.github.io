@@ -53,8 +53,9 @@ Feel free to reach out if you'd like to discuss research or explore potential co
 
 <span class='anchor' id='internships'></span>
 # 💼 Experience
+- *2026.06 - Present*: &nbsp;Algorithm Engineer, <span class="primary-gradient-text">HiThink Lab, RoyalFlush (同花顺)</span>.
+- *2026.01 - 2026.06*: &nbsp;Algorithm Engineer Intern, <span class="primary-gradient-text">HiThink Lab, RoyalFlush (同花顺)</span>.
 - *2025.08 - 2025.11*: &nbsp;Data Strategy Intern, <span class="primary-gradient-text">Douyin Group</span>, ByteDance.
-- *2026.01 - Present*: &nbsp;Algorithm Engineer, <span class="primary-gradient-text">HiThink Lab, RoyalFlush (同花顺)</span>.
 
 <span class='anchor' id='awards-grants'></span>
 # 🏆 Awards & Grants
