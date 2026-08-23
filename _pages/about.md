@@ -37,6 +37,7 @@ Feel free to reach out if you'd like to discuss research or explore potential co
 
 <span class='anchor' id='-news'></span>
 # 🔥 News
+- *08/2026*: &nbsp;🎉 Two papers got accepted by <span class="accent-text">The 2026 Conference on Empirical Methods in Natural Language Processing (EMNLP 2026)</span> (1 Main, 1 Findings). See you in Budapest🇭🇺!
 - *06/2026*: &nbsp;🎉 One preprint was online via <span class="accent-text">ArXiv</span>.
 - *01/2026*: &nbsp;🎉 One paper got accepted by <span class="accent-text">The Fourteenth International Conference on Learning Representations (ICLR 2026)</span>. See you in Rio de Janeiro🇧🇷!
 - *09/2025*: &nbsp;🎉 One preprint was online via <span class="accent-text">ArXiv</span>.
@@ -66,15 +67,27 @@ Feel free to reach out if you'd like to discuss research or explore potential co
 <div id="publications-wrapper">
   <div id="filter-container"></div>
 
-  <div class='paper-box floating-card' data-tags="LLM, Latent Reasoning, Reinforcement Learning, Mechanistic Interpretability">
+  <div class='paper-box floating-card' data-tags="LLM, Multimodal, Geometry, Test-Time Scaling, EMNLP, CCF-B">
     <div class='paper-box-image'>
-      <div class="badge pulse-accent">ArXiv Preprint</div>
-      <img src='images/paper-switch.png' alt="SWITCH Overview" width="100%">
+      <div class="badge pulse-accent">EMNLP 2026 Main</div>
+      <img src='images/paper-emnlp2026-retts.png' alt="ReTTS Overview" width="100%">
+    </div>
+    <div class='paper-box-text'>
+      <h3>Reactivating Test-Time Scaling for Plane Geometry Problem Solving</h3>
+      <div class="authors">Xiaoqiang Kang, <span class="primary-gradient-text">Shengen WU</span>, Maizhen Ning, Xiaobo Jin, Kaizhu Huang, Yutao Yue, Xiaowei Huang, Qiufeng Wang📧</div>
+      <div class="venue">The 2026 Conference on Empirical Methods in Natural Language Processing (EMNLP 2026)</div>
+    </div>
+  </div>
+
+  <div class='paper-box floating-card' data-tags="LLM, Latent Reasoning, Reinforcement Learning, Mechanistic Interpretability, EMNLP, CCF-B">
+    <div class='paper-box-image'>
+      <div class="badge pulse-accent">EMNLP 2026 Findings</div>
+      <img src='images/paper-emnlp2026-switch.png' alt="SWITCH Overview" width="100%">
     </div>
     <div class='paper-box-text'>
       <h3>Demystifying Hidden-State Recurrence: Switchable Latent Reasoning with On-Policy Reinforcement Learning</h3>
       <div class="authors">Jiayu Yang, Chao Chen, <span class="primary-gradient-text">Shengen WU</span>, Yinhong Liu, Yuxuan Fan, Lujundong Li, Songning Lai, Chengwei Qin, Zhijiang Guo</div>
-      <div class="venue">ArXiv Preprint (2026)</div>
+      <div class="venue">Findings of the Association for Computational Linguistics: EMNLP 2026</div>
       <div class="links">
         <a href="https://arxiv.org/abs/2606.13106" class="btn-accent"><i class="fas fa-file-alt"></i> Paper</a>
       </div>
