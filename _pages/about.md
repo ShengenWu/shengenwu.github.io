@@ -126,7 +126,7 @@ Feel free to reach out if you'd like to discuss research or explore potential co
 
   <div class='paper-box floating-card' data-tags="LLM, Multimodal, Table Understanding, EMNLP, CCF-B">
     <div class='paper-box-image'>
-      <div class="badge pulse-accent">EMNLP 2025 Poster</div>
+      <div class="badge pulse-accent">EMNLP 2025 Main</div>
       <img src='images/paper-emnlp2025.png' alt="TableR1 Overview" width="100%">
     </div>
     <div class='paper-box-text'>
