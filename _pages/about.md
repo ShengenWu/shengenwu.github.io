@@ -87,7 +87,7 @@ Feel free to reach out if you'd like to discuss research or explore potential co
     </div>
     <div class='paper-box-text'>
       <h3>Demystifying Hidden-State Recurrence: Switchable Latent Reasoning with On-Policy Reinforcement Learning</h3>
-      <div class="authors">Jiayu Yang, Chao Chen, <span class="primary-gradient-text">Shengen WU</span>, Yinhong Liu, Yuxuan Fan, Lujundong Li, Songning Lai, Chengwei Qin, Zhijiang Guo</div>
+      <div class="authors">Jiayu Yang, Chao Chen, <span class="primary-gradient-text">Shengen WU</span>, Yinhong Liu, Yuxuan Fan, Lujundong Li, Songning Lai, Chengwei Qin, Zhijiang Guo📧</div>
       <div class="venue">Findings of the Association for Computational Linguistics: EMNLP 2026</div>
       <div class="links">
         <a href="https://arxiv.org/abs/2606.13106" class="btn-accent"><i class="fas fa-file-alt"></i> Paper</a>
