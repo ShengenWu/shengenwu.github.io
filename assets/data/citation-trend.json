@@ -1,17 +1,17 @@
 {
   "source": "Google Scholar",
   "source_url": "https://scholar.google.com/citations?user=HMq3kTsAAAAJ&hl=zh-CN",
-  "updated_at": "2026-08-25",
+  "updated_at": "2026-10-21",
   "display_name": "Shengen Wu",
-  "total_citations": 31,
+  "total_citations": 37,
   "counts_by_year": [
     {
       "year": 2025,
-      "cited_by_count": 7
+      "cited_by_count": 6
     },
     {
       "year": 2026,
-      "cited_by_count": 24
+      "cited_by_count": 31
     }
   ]
 }
